@@ -20,6 +20,7 @@ class Board:
     POSITIVE_H = [(1, 6), (2, 8), (13, 8), (12, 6)]
 
 
+
 class Text:
 
     MADE_BY = 'Made By: Mansi Agrawal & Shivam Gupta'

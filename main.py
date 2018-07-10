@@ -1,5 +1,4 @@
 import tkinter as tk
-
 from settings import *
 from board import *
 
