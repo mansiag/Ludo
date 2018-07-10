@@ -6,6 +6,7 @@ class Color:
     BLUE = '#3575EC'
     DEFAULT = '#E9E9E9'
     CYAN = '#4EB1BA'
+    GRAY = '#A9A9A9'
 
 
 class Board:
