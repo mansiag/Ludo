@@ -1,5 +1,3 @@
-
-# colours
 class Color:
 
     GREEN = '#0CED2C'

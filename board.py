@@ -1,16 +1,15 @@
-from tkinter import *
-from tkinter import font
+import tkinter as tk
 from settings import *
 
 
 class LudoBoard:
 
     def __init__(self, master):
-        self.canvas = Canvas(master, width=Board.BOARD_WIDTH, height=Board.BOARD_HEIGHT)
-        self.frame = Frame(master, width=Board.PANEL_WIDTH, height=Board.PANEL_HEIGHT, bg=Color.CYAN)
-        self.button = Button(master, text='QUIT', command=master.quit, relief=RAISED, width=20, height=2)
-        self.title_bar = Label(master, text=Text.HEADER, fg=Color.DEFAULT, bg=Color.CYAN , font=(None, 40), relief=GROOVE)
-        self.status_bar = Label(master, text=Text.MADE_BY, bd=1, relief=SUNKEN)
+        self.canvas = tk.Canvas(master, width=Board.BOARD_WIDTH, height=Board.BOARD_HEIGHT)
+        self.frame = tk.Frame(master, width=Board.PANEL_WIDTH, height=Board.PANEL_HEIGHT, bg=Color.CYAN)
+        self.button = tk.Button(master, text='QUIT', command=master.quit, relief=tk.RAISED, width=20, height=2)
+        self.title_bar = tk.Label(master, text=Text.HEADER, fg=Color.DEFAULT, bg=Color.CYAN , font=(None, 40), relief=tk.GROOVE)
+        self.status_bar = tk.Label(master, text=Text.MADE_BY, bd=1, relief=tk.SUNKEN)
 
     def draw_rectangle(self, lx, ly, bx, by, color, width):
         self.canvas.create_rectangle(
@@ -113,8 +112,8 @@ class LudoBoard:
     def create_panel(self):
         self.frame.place(x=700, y=80)
         self.button.place(x=920, y=620)
-        self.title_bar.pack(side=TOP, fill=X)
-        self.status_bar.pack(side=BOTTOM, fill=X)
+        self.title_bar.pack(side=tk.TOP, fill=tk.X)
+        self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
 
     def create(self):
         self.path()
