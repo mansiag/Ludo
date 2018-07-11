@@ -131,5 +131,5 @@ class LudoBoard:
         self.home()
         self.create_panel() 
 
-    def getcanvas(self):
+    def get_canvas(self):
     	return self.canvas

@@ -29,6 +29,12 @@ class Text:
 
 
 class Path:
+    green_path = []
+    red_path = []
+    blue_path = []
+    yellow_path = []
+
+
 
     def __init__(self):
 

@@ -12,6 +12,9 @@ class Coin:
 		self.home_x = x
 		self.home_y = y
 		self.color = color
-		coin = ImageTk.PhotoImage(Image.open(os.getcwd() + "/assets/" + color + ".gif"))
-		self.img =  self.canvas.create_image(x + Board.SQUARE_SIZE/2, y + Board.SQUARE_SIZE/2, image=coin)
+		self.coin = ImageTk.PhotoImage(Image.open(os.getcwd() + "/assets/" + color + ".gif"))
+		self.img =  self.canvas.create_image(x + Board.SQUARE_SIZE/2, y + Board.SQUARE_SIZE/2, image=self.coin)
 
+
+	def move(self,x,y):
+		self.canvas.coords(self.img, x+ Board.SQUARE_SIZE/2, y+  Board.SQUARE_SIZE/2)

@@ -2,6 +2,7 @@ import tkinter as tk
 from settings import *
 from board import *
 from coin import *
+import time
 
 root = tk.Tk()
 width = root.winfo_screenwidth()
@@ -11,6 +12,14 @@ root.title('Ludo')
 
 ludo = LudoBoard(root)
 ludo.create()
-green = Coin(ludo.getcanvas(), 60, 60, color='green')
+green = []
+red = []
+yellow = []
+blue = []
+test = Coin(ludo.get_canvas(), 80, 80, color='green')
+green.append(test)
+
+
+
 
 root.mainloop()
