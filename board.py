@@ -133,7 +133,7 @@ class LudoBoard:
         self.create_panel() 
 
     def get_canvas(self):
-    	return self.canvas
+        return self.canvas
 
     def get_frame(self):
-    	return self.frame
+        return self.frame
