@@ -29,147 +29,120 @@ class Text:
 
 class Path:
 
-    green_path = []
-    red_path = []
-    blue_path = []
-    yellow_path = []
-
     def __init__(self):
+
+        self.green_path = []
+        self.red_path = []
+        self.blue_path = []
+        self.yellow_path = []
+        self.gx = None
+        self.gy = None 
+        self.ry = None
+        self.by = None
+        self.count = None
+
+
+    def update_coordinates(self, gx, gy, ry, by, count):
+
+        self.gx = gx
+        self.gy = gy
+        self.ry = ry
+        self.by = by
+        self.count = count
+
+    def start_populating(self):
+
         #1
-        gx = 1.5 * Board.SQUARE_SIZE
-        gy = 0.5 * Board.SQUARE_SIZE
-        ry = 13.5 * Board.SQUARE_SIZE
-        by = 8.5 * Board.SQUARE_SIZE
-        self.direct(gx, gy, ry, by, count=5, pow_index=0, direction='right')
-
+        self.update_coordinates(60, 20, 540, 340, 5)
+        self.direct(pow_index=0, direction='right')
         #2
-        gx = 6.5 * Board.SQUARE_SIZE
-        gy = 5.5 * Board.SQUARE_SIZE
-        ry = 8.5 * Board.SQUARE_SIZE
-        by = 9.5 * Board.SQUARE_SIZE
-        self.direct(gx, gy, ry, by, count=5, pow_index=3, direction='up')
-
+        self.update_coordinates(260, 220, 340, 380, 5)
+        self.direct(pow_index=3, direction='up')
         #3
-        gx = 6.5 * Board.SQUARE_SIZE
-        gy = 0.5 * Board.SQUARE_SIZE
-        ry = 8.5 * Board.SQUARE_SIZE
-        by = 14.5 * Board.SQUARE_SIZE
-        self.direct(gx, gy, ry, by, count=3, direction='right') 
-
+        self.update_coordinates(260, 20, 340, 580, 3)
+        self.direct(direction='right') 
         #4
-        gx = 8.5 * Board.SQUARE_SIZE
-        gy = 1.5 * Board.SQUARE_SIZE
-        ry = 6.5 * Board.SQUARE_SIZE
-        by = 13.5 * Board.SQUARE_SIZE
-        self.direct(gx, gy, ry, by, count=5, pow_index=0, direction='down')
-
+        self.update_coordinates(340, 60, 260, 540, 5)
+        self.direct(pow_index=0, direction='down')
         #5
-        gx = 9.5 * Board.SQUARE_SIZE
-        gy = 6.5 * Board.SQUARE_SIZE
-        ry = 20.5 * Board.SQUARE_SIZE
-        by = 8.5 * Board.SQUARE_SIZE  
-        self.direct(gx, gy, ry, by, count=5, pow_index=3, direction='right')
-
+        self.update_coordinates(380, 260, 220, 340, 5)
+        self.direct(pow_index=3, direction='right')
         #6
-        gx = 14.5 * Board.SQUARE_SIZE
-        gy = 6.5 * Board.SQUARE_SIZE
-        ry = 0.5 * Board.SQUARE_SIZE
-        by = 8.5 * Board.SQUARE_SIZE
-        self.direct(gx, gy, ry, by, count=3, direction='down')
-
+        self.update_coordinates(580, 260, 20, 340, 3)
+        self.direct(direction='down')
         #7
-        gx = 13.5 * Board.SQUARE_SIZE
-        gy = 8.5 * Board.SQUARE_SIZE
-        ry = 1.5 * Board.SQUARE_SIZE
-        by = 6.5 * Board.SQUARE_SIZE
-        self.direct(gx, gy, ry, by, count=5, pow_index=0, direction='left')
-
+        self.update_coordinates(540, 340, 60, 260, 5)
+        self.direct(pow_index=0, direction='left')
         #8
-        gx = 9.0 * Board.SQUARE_SIZE
-        gy = 9.5 * Board.SQUARE_SIZE
-        ry = 6.5 * Board.SQUARE_SIZE
-        by = 20.5 * Board.SQUARE_SIZE
-        self.direct(gx, gy, ry, by, count=5, pow_index=3, direction='down')
-
+        self.update_coordinates(360, 380, 260, 220, 5)
+        self.direct(pow_index=3, direction='down')
         #9
-        gx = 8.5 * Board.SQUARE_SIZE
-        gy = 14.5 * Board.SQUARE_SIZE
-        ry = 6.5 * Board.SQUARE_SIZE
-        by = 0.5 * Board.SQUARE_SIZE
-        self.direct(gx, gy, ry, by, count=3, direction='left')
-
+        self.update_coordinates(340, 580, 260, 20, 3)
+        self.direct(direction='left')
         #10
-        gx = 6.5 * Board.SQUARE_SIZE
-        gy = 13.5 * Board.SQUARE_SIZE
-        ry = 8.5 * Board.SQUARE_SIZE
-        by = 1.5 * Board.SQUARE_SIZE
-        self.direct(gx, gy, ry, by, count=5, pow_index=0, direction='up')
-
+        self.update_coordinates(260, 540, 340, 60, 5)
+        self.direct(pow_index=0, direction='up')
         #11
-        gx = 20.5 * Board.SQUARE_SIZE
-        gy = 8.5 * Board.SQUARE_SIZE
-        ry = 9.5 * Board.SQUARE_SIZE
-        by = 6.5 * Board.SQUARE_SIZE
-        self.direct(gx, gy, ry, by, count=6, pow_index=3, direction='left')
-
+        self.update_coordinates(220, 340, 380, 260, 6)
+        self.direct(pow_index=3, direction='left')
         #12
-        gx = 0.5 * Board.SQUARE_SIZE
-        gy = 7.5 * Board.SQUARE_SIZE
-        ry = 14.5 * Board.SQUARE_SIZE
-        by = 7.5 * Board.SQUARE_SIZE
-        self.direct(gx, gy, ry, by, count=6, direction='right')
+        self.update_coordinates(20, 300, 580, 300, 6)
+        self.direct(direction='right')
 
-    def right(self, gx, gy, ry, by, count, pow_index=-1):
-        for i in range(count):
+    def add_path(self, p, i):
+
+        self.green_path.append((self.gx, self.gy + i*Board.SQUARE_SIZE, p))
+        self.red_path.append((self.gy + i*Board.SQUARE_SIZE, self.ry, p))
+        self.blue_path.append((self.ry, self.by - i*Board.SQUARE_SIZE, p))
+        self.yellow_path.append((self.by - i*Board.SQUARE_SIZE, self.gx, p))
+
+
+    def right(self, pow_index = -1):
+
+        for i in range(self.count):
             if i == pow_index:
                 p = 1
             else:
                 p = 0
-            self.green_path.append((gx  +  i*Board.SQUARE_SIZE, gy, p))
-            self.red_path.append((gy, ry  -  i*Board.SQUARE_SIZE, p))
-            self.blue_path.append((ry - i*Board.SQUARE_SIZE, by, p))
-            self.yellow_path.append((by, gx + i*Board.SQUARE_SIZE, p))
 
-    def  left(self, gx, gy, ry, by, count, pow_index=-1):
-        for i in range(count):
+            self.add_path(p, i)
+
+    def left(self, pow_index = -1):
+
+        for i in range(self.count):
             if i == pow_index:
                 p = 1
             else:
                 p = 0
-            self.green_path.append((gx - i*Board.SQUARE_SIZE, gy, p))
-            self.red_path.append((gy, ry + i*Board.SQUARE_SIZE, p))
-            self.blue_path.append((ry + i*4, by, p))
-            self.yellow_path.append((by, gx - i*Board.SQUARE_SIZE, p))
 
-    def up(self, gx, gy, ry, by, count, pow_index=-1):
-        for i in range(count):
+            self.add_path(p, i)
+
+    def up(self, pow_index = -1):
+
+        for i in range(self.count):
             if i == pow_index:
                 p = 1
             else:
                 p = 0
-            self.green_path.append((gx, gy - i*Board.SQUARE_SIZE, p))
-            self.red_path.append((gy - i*Board.SQUARE_SIZE,ry, p))
-            self.blue_path.append((ry, by + i*Board.SQUARE_SIZE, p))
-            self.yellow_path.append((by + i*Board.SQUARE_SIZE, gx, p))
+            self.add_path(p, i)
 
-    def down(self, gx, gy, ry, by, count, pow_index=-1):
-        for i in range(count):
+    def down(self, pow_index = -1):
+        for i in range(self.count):
             if i == pow_index:
                 p = 1
             else:
                 p = 0
-            self.green_path.append((gx, gy + i*Board.SQUARE_SIZE, p))
-            self.red_path.append((gy + i*Board.SQUARE_SIZE, ry, p))
-            self.blue_path.append((ry, by - i*Board.SQUARE_SIZE, p))
-            self.yellow_path.append((by - i*Board.SQUARE_SIZE, gx, p))         
-    
-    def direct(self, gx, gy, ry, by, count, direction, pow_index=-1):
+            self.add_path(p, i)
+
+    def direct(self, direction, pow_index = -1):
         if direction=='right':
-            self.right(gx, gy, ry, by, count, pow_index)
+            self.right(pow_index)
         elif direction=='left':
-            self.left(gx, gy, ry, by, count, pow_index)
+            self.left(pow_index)
         elif direction=='down':
-            self.down(gx, gy, ry, by, count, pow_index)
+            self.down(pow_index)
         else:
-            self.up(gx, gy, ry, by, count, pow_index)    
+            self.up(pow_index)
 
+path = Path()
+path.start_populating()
