@@ -135,4 +135,4 @@ class LudoBoard:
     	return self.canvas
 
     def get_frame(self):
-    	return self.get_frame
+    	return self.frame
