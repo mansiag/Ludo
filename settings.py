@@ -89,60 +89,40 @@ class Path:
         self.update_coordinates(20, 300, 580, 300, 6)
         self.direct(direction='right')
 
-    def add_path(self, p, i):
-
-        self.green_path.append((self.gx, self.gy + i*Board.SQUARE_SIZE, p))
-        self.red_path.append((self.gy + i*Board.SQUARE_SIZE, self.ry, p))
-        self.blue_path.append((self.ry, self.by - i*Board.SQUARE_SIZE, p))
-        self.yellow_path.append((self.by - i*Board.SQUARE_SIZE, self.gx, p))
-
-
-    def right(self, pow_index = -1):
+    def direct_horizontal(self, pow_index = -1, k):
 
         for i in range(self.count):
             if i == pow_index:
                 p = 1
             else:
                 p = 0
+            self.green_path.append((gx  +  k*i*Board.SQUARE_SIZE, gy, p))
+            self.red_path.append((gy, ry  -  k*i*Board.SQUARE_SIZE, p))
+            self.blue_path.append((ry - k*i*Board.SQUARE_SIZE, by, p))
+            self.yellow_path.append((by, gx + k*i*Board.SQUARE_SIZE, p))
 
-            self.add_path(p, i)
-
-    def left(self, pow_index = -1):
-
-        for i in range(self.count):
-            if i == pow_index:
-                p = 1
-            else:
-                p = 0
-
-            self.add_path(p, i)
-
-    def up(self, pow_index = -1):
+     def direct_vertical(self, pow_index = -1, k):
 
         for i in range(self.count):
             if i == pow_index:
                 p = 1
             else:
                 p = 0
-            self.add_path(p, i)
-
-    def down(self, pow_index = -1):
-        for i in range(self.count):
-            if i == pow_index:
-                p = 1
-            else:
-                p = 0
-            self.add_path(p, i)
+            self.green_path.append((gx, gy - k*i*Board.SQUARE_SIZE, p))
+            self.red_path.append((gy - k*i*Board.SQUARE_SIZE,ry, p))
+            self.blue_path.append((ry, by + k*i*Board.SQUARE_SIZE, p))
+            self.yellow_path.append((by + k*i*Board.SQUARE_SIZE, gx, p))
+ 
 
     def direct(self, direction, pow_index = -1):
         if direction=='right':
-            self.right(pow_index)
+            self.direct_horizontal(pow_index, 1)
         elif direction=='left':
-            self.left(pow_index)
+            self.direct_horizontal(pow_index, -1)
         elif direction=='down':
-            self.down(pow_index)
+            self.direct_vertical(pow_index, -1)
         else:
-            self.up(pow_index)
+            self.direct_vertical(pow_index, 1)
 
 path = Path()
 path.start_populating()
