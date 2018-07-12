@@ -12,7 +12,7 @@ class Color:
 class Board:
 
     SQUARE_SIZE = 40
-    PANEL_WIDTH = 600
+    PANEL_WIDTH = 1.5 * Board.SQUARE_SIZE0
     PANEL_HEIGHT = 640
     BOARD_WIDTH = 640
     BOARD_HEIGHT = 640
