@@ -1,8 +1,9 @@
 import tkinter as tk
+import time
+
 from settings import *
 from board import *
 from coin import *
-import time
 
 
 def align(x, y, color):
@@ -27,8 +28,6 @@ green = align(80, 80, color='green')
 red = align(80, 440, color='red')
 yellow = align(440, 80, color='yellow')
 blue = align(440, 440, color='blue')
-
-
 
 
 root.mainloop()
