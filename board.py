@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import font
+
 from settings import *
 
 
@@ -130,3 +131,9 @@ class LudoBoard:
         self.path()
         self.home()
         self.create_panel() 
+
+    def get_canvas(self):
+    	return self.canvas
+
+    def get_frame(self):
+    	return self.frame
