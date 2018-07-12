@@ -21,7 +21,6 @@ class Board:
     POSITIVE_H = [(1, 6), (2, 8), (13, 8), (12, 6)]
 
 
-
 class Text:
 
     MADE_BY = 'Made By: Mansi Agrawal & Shivam Gupta'
@@ -29,20 +28,13 @@ class Text:
 
 
 class Path:
+
     green_path = []
     red_path = []
     blue_path = []
     yellow_path = []
 
-
-
     def __init__(self):
-
-        self.green_path = []
-        self.red_path = []
-        self.blue_path = []
-        self.yellow_path = []
-
         #1
         gx = 60
         gy = 20
@@ -127,7 +119,6 @@ class Path:
         by = 300
         self.direct(gx, gy, ry, by, count=6, direction='right')
 
-
     def right(self, gx, gy, ry, by, count, pow_index = -1):
         for i in range(count):
             if i == pow_index:
@@ -138,7 +129,6 @@ class Path:
             self.red_path.append((gy, ry  -  i*Board.SQUARE_SIZE, p))
             self.blue_path.append((ry - i*Board.SQUARE_SIZE, by, p))
             self.yellow_path.append((by, gx + i*Board.SQUARE_SIZE, p))
-
 
     def  left(self, gx, gy, ry, by, count, pow_index = -1):
         for i in range(count):
@@ -151,7 +141,6 @@ class Path:
             self.blue_path.append((ry + i*4, by, p))
             self.yellow_path.append((by, gx - i*Board.SQUARE_SIZE, p))
 
-
     def up(self, gx, gy, ry, by, count, pow_index = -1):
         for i in range(count):
             if i == pow_index:
@@ -162,7 +151,6 @@ class Path:
             self.red_path.append((gy - i*Board.SQUARE_SIZE,ry, p))
             self.blue_path.append((ry, by + i*Board.SQUARE_SIZE, p))
             self.yellow_path.append((by + i*Board.SQUARE_SIZE, gx, p))
-
 
     def down(self, gx, gy, ry, by, count, pow_index = -1):
         for i in range(count):
@@ -175,7 +163,6 @@ class Path:
             self.blue_path.append((ry, by - i*Board.SQUARE_SIZE, p))
             self.yellow_path.append((by - i*Board.SQUARE_SIZE, gx, p))         
     
-
     def direct(self, gx, gy, ry, by, count, direction, pow_index = -1):
         if direction=='right':
             self.right(gx, gy, ry, by, count, pow_index)

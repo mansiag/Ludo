@@ -1,6 +1,7 @@
 import tkinter as tk
 import os
 from PIL import ImageTk, Image
+
 from settings import *
 
 class Coin:
@@ -13,9 +14,8 @@ class Coin:
 		self.home_y = y
 		self.color = color
 		self.coin_index = coin_index
-		self.coin = ImageTk.PhotoImage(Image.open(os.getcwd() + "/assets/" + color + ".gif"))
+		self.coin = ImageTk.PhotoImage(Image.open(os.getcwd() + '/assets/' + color + '.gif'))
 		self.img =  self.canvas.create_image(x, y, anchor=tk.NW, image=self.coin)
-
 
 	def move(self,x,y):
 		self.canvas.coords(self.img, x, y)

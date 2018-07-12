@@ -5,7 +5,6 @@ from settings import *
 from board import *
 from coin import *
 
-
 def align(x, y, color):
 	list = []
 	for i in range(2):
@@ -28,6 +27,5 @@ green = align(80, 80, color='green')
 red = align(80, 440, color='red')
 yellow = align(440, 80, color='yellow')
 blue = align(440, 440, color='blue')
-
 
 root.mainloop()
