@@ -23,9 +23,9 @@ root.title('Ludo')
 
 ludo = LudoBoard(root)
 ludo.create()
-green = align(80, 80, color='green')
-red = align(80, 440, color='red')
-yellow = align(440, 80, color='yellow')
-blue = align(440, 440, color='blue')
+green = align(2*Board.SQUARE_SIZE, 2*Board.SQUARE_SIZE, color='green')
+red = align(2*Board.SQUARE_SIZE, 11*Board.SQUARE_SIZE, color='red')
+yellow = align(11*Board.SQUARE_SIZE, 2*Board.SQUARE_SIZE, color='yellow')
+blue = align(11*Board.SQUARE_SIZE, 11*Board.SQUARE_SIZE, color='blue')
 
 root.mainloop()
