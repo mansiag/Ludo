@@ -12,7 +12,7 @@ class Color:
 class Board:
 
     SQUARE_SIZE = 40
-    PANEL_WIDTH = 1.5 * Board.SQUARE_SIZE0
+    PANEL_WIDTH = 600
     PANEL_HEIGHT = 640
     BOARD_WIDTH = 640
     BOARD_HEIGHT = 640
@@ -89,30 +89,30 @@ class Path:
         self.update_coordinates(20, 300, 580, 300, 6)
         self.direct(direction='right')
 
-    def direct_horizontal(self, pow_index = -1, k):
+    def direct_horizontal(self, k, pow_index = -1):
 
         for i in range(self.count):
             if i == pow_index:
                 p = 1
             else:
                 p = 0
-            self.green_path.append((gx  +  k*i*Board.SQUARE_SIZE, gy, p))
-            self.red_path.append((gy, ry  -  k*i*Board.SQUARE_SIZE, p))
-            self.blue_path.append((ry - k*i*Board.SQUARE_SIZE, by, p))
-            self.yellow_path.append((by, gx + k*i*Board.SQUARE_SIZE, p))
+            self.green_path.append((self.gx  +  k*i*Board.SQUARE_SIZE, self.gy, p))
+            self.red_path.append((self.gy, self.ry  -  k*i*Board.SQUARE_SIZE, p))
+            self.blue_path.append((self.ry - k*i*Board.SQUARE_SIZE, self.by, p))
+            self.yellow_path.append((self.by, self.gx + k*i*Board.SQUARE_SIZE, p))
 
-     def direct_vertical(self, pow_index = -1, k):
+    def direct_vertical(self, k, pow_index = -1):
 
         for i in range(self.count):
             if i == pow_index:
                 p = 1
             else:
                 p = 0
-            self.green_path.append((gx, gy - k*i*Board.SQUARE_SIZE, p))
-            self.red_path.append((gy - k*i*Board.SQUARE_SIZE,ry, p))
-            self.blue_path.append((ry, by + k*i*Board.SQUARE_SIZE, p))
-            self.yellow_path.append((by + k*i*Board.SQUARE_SIZE, gx, p))
- 
+            self.green_path.append((self.gx, self.gy - k*i*Board.SQUARE_SIZE, p))
+            self.red_path.append((self.gy - k*i*Board.SQUARE_SIZE,self.ry, p))
+            self.blue_path.append((self.ry, self.by + k*i*Board.SQUARE_SIZE, p))
+            self.yellow_path.append((self.by + k*i*Board.SQUARE_SIZE, self.gx, p))
+
 
     def direct(self, direction, pow_index = -1):
         if direction=='right':
