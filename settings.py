@@ -116,13 +116,13 @@ class Path:
 
     def direct(self, direction, pow_index = -1):
         if direction=='right':
-            self.direct_horizontal(pow_index, 1)
+            self.direct_horizontal(1, pow_index=pow_index)
         elif direction=='left':
-            self.direct_horizontal(pow_index, -1)
+            self.direct_horizontal(-1, pow_index=pow_index)
         elif direction=='down':
-            self.direct_vertical(pow_index, -1)
+            self.direct_vertical(-1, pow_index=pow_index)
         else:
-            self.direct_vertical(pow_index, 1)
+            self.direct_vertical(1, pow_index=pow_index)
 
 path = Path()
 path.start_populating()

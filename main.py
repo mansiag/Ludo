@@ -28,4 +28,6 @@ red = align(2*Board.SQUARE_SIZE, 11*Board.SQUARE_SIZE, color='red')
 yellow = align(11*Board.SQUARE_SIZE, 2*Board.SQUARE_SIZE, color='yellow')
 blue = align(11*Board.SQUARE_SIZE, 11*Board.SQUARE_SIZE, color='blue')
 
+button = tk.Button(ludo.get_frame(), text="move", command= lambda: yellow[0].move(path.yellow_path,0))
+button.pack()
 root.mainloop()

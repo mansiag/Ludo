@@ -17,5 +17,3 @@ class Coin:
         self.coin = ImageTk.PhotoImage(Image.open(os.getcwd() + '/assets/' + color + '.gif'))
         self.img =  self.canvas.create_image(x, y, anchor=tk.NW, image=self.coin)
 
-    def move(self,x,y):
-        self.canvas.coords(self.img, x, y)
