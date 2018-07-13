@@ -28,5 +28,5 @@ red = align(2*Board.SQUARE_SIZE, 11*Board.SQUARE_SIZE, color='red')
 yellow = align(11*Board.SQUARE_SIZE, 2*Board.SQUARE_SIZE, color='yellow')
 blue = align(11*Board.SQUARE_SIZE, 11*Board.SQUARE_SIZE, color='blue')
 
-button.pack()
+
 root.mainloop()
