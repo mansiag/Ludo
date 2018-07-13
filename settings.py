@@ -53,7 +53,7 @@ class Path:
     def start_populating(self):
 
         #1
-        self.update_coordinates(60, 20, 540, 340, 5)
+        self.update_coordinates(60, 260, 540, 340, 5)
         self.direct(pow_index=0, direction='right')
         #2
         self.update_coordinates(260, 220, 340, 380, 5)
@@ -74,7 +74,7 @@ class Path:
         self.update_coordinates(540, 340, 60, 260, 5)
         self.direct(pow_index=0, direction='left')
         #8
-        self.update_coordinates(360, 380, 260, 220, 5)
+        self.update_coordinates(340, 380, 260, 220, 5)
         self.direct(pow_index=3, direction='down')
         #9
         self.update_coordinates(340, 580, 260, 20, 3)
