@@ -16,4 +16,7 @@ class Coin:
         self.coin_index = coin_index
         self.coin = ImageTk.PhotoImage(Image.open(os.getcwd() + '/assets/' + color + '.gif'))
         self.img =  self.canvas.create_image(x, y, anchor=tk.NW, image=self.coin)
+        self.canvas.tag_bind(self.img, '<ButtonPress-1>', self.onClick)
 
+    def onClick(self, event):
+        print("working baby")
