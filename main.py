@@ -5,6 +5,7 @@ from settings import *
 from board import *
 from coin import *
 
+
 def align(x, y, color):
     list = []
     for i in range(2):
@@ -28,5 +29,6 @@ red = align(2*Board.SQUARE_SIZE, 11*Board.SQUARE_SIZE, color='red')
 yellow = align(11*Board.SQUARE_SIZE, 2*Board.SQUARE_SIZE, color='yellow')
 blue = align(11*Board.SQUARE_SIZE, 11*Board.SQUARE_SIZE, color='blue')
 
-
+button1 = tk.Button(ludo.get_frame(), text="Dice", command=green[0].enable(), width=20, height=2)
+button1.place(x=220,y=320)
 root.mainloop()

@@ -17,6 +17,17 @@ class Coin:
         self.coin = ImageTk.PhotoImage(Image.open(os.getcwd() + '/assets/' + color + '.gif'))
         self.img =  self.canvas.create_image(x, y, anchor=tk.NW, image=self.coin)
         self.canvas.tag_bind(self.img, '<ButtonPress-1>', self.onClick)
+        self.disable = True
 
     def onClick(self, event):
-        print("working baby")
+        if(self.disable == False):
+            print("you are allowed to move")
+            #move the coin
+        else:
+            print("you are not allowed to move")
+
+    def disable(self):
+        self.disable = True
+
+    def enable(self):
+        self.disable = False
