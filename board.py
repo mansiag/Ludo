@@ -1,15 +1,15 @@
 import tkinter as tk
+from random import randrange
 from tkinter import font
 
 from settings import *
-
 
 class LudoBoard:
 
     def __init__(self, master):
         self.canvas = tk.Canvas(master, width=Board.BOARD_WIDTH, height=Board.BOARD_HEIGHT)
         self.frame = tk.Frame(master, width=Board.PANEL_WIDTH, height=Board.PANEL_HEIGHT, bg=Color.CYAN)
-        self.button = tk.Button(master, text='QUIT', command=master.quit, relief=tk.RAISED, width=20, height=2)
+        self.Quit = tk.Button(master, text='QUIT', command=master.quit, relief=tk.RAISED, width=20, height=2)
         self.title_bar = tk.Label(master, text=Text.HEADER, fg=Color.DEFAULT, bg=Color.CYAN, font=(None, 40), relief=tk.GROOVE)
         self.status_bar = tk.Label(master, text=Text.MADE_BY, bd=1, relief=tk.SUNKEN)
 
@@ -123,7 +123,7 @@ class LudoBoard:
 
     def create_panel(self):
         self.frame.place(x=700, y=80)
-        self.button.place(x=920, y=620)
+        self.Quit.place(x=920, y=620)
         self.title_bar.pack(side=tk.TOP, fill=tk.X)
         self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
 
