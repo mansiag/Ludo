@@ -47,7 +47,8 @@ class Coin:
             
         if len(roll) == 0:
             Dice.set(self.flag)
-                
+        
+        print(roll)    
         
         if self.is_at_home():
             if 6 in roll:
@@ -62,12 +63,11 @@ class Coin:
                 self.canvas.coords(self.img, self.path_list[self.curr_index][0] + 2, self.path_list[self.curr_index][1] + 2)
                 self.curr_x = self.path_list[self.curr_index][0]
                 self.curr_y = self.path_list[self.curr_index][1]
-            
-                Dice.remove()
+            Dice.remove()
         
         if len(Dice.roll) == 0:
             Dice.set(self.flag)
-            next_label = tk.Label(ludo.get_frame(), text='Next Turn', font=(None, 20), fg=self.color, width=30, height=3)
+            next_label = tk.Label(ludo.get_frame(), text="{} turn's Over Next Roll".format(self.color.title()), font=(None, 20), fg=self.color, width=30, height=3)
             next_label.place(x=100, y=150) 
 
 
