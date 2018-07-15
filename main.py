@@ -43,6 +43,7 @@ class Coin:
 
         if count == 4 and (6 not in roll):
             roll = []
+            Dice.roll = []
             
         if len(roll) == 0:
             Dice.set(self.flag)
@@ -147,8 +148,8 @@ ludo.create()
 colors = []
 colors.append(align(2*Board.SQUARE_SIZE, 2*Board.SQUARE_SIZE, color='green', path_list=path.green_path, flag=0))
 colors.append(align(2*Board.SQUARE_SIZE, 11*Board.SQUARE_SIZE, color='red', path_list=path.red_path, flag=1))
-colors.append(align(11*Board.SQUARE_SIZE, 2*Board.SQUARE_SIZE, color='yellow', path_list=path.yellow_path, flag=3))
 colors.append(align(11*Board.SQUARE_SIZE, 11*Board.SQUARE_SIZE, color='blue', path_list=path.blue_path, flag=2))
+colors.append(align(11*Board.SQUARE_SIZE, 2*Board.SQUARE_SIZE, color='yellow', path_list=path.yellow_path, flag=3))
 
 
 button = tk.Button(ludo.get_frame(), text='ROLL', command=Dice.rolling, width=20, height=2)
