@@ -1,5 +1,5 @@
 import tkinter as tk
-import time
+from time import sleep
 from random import choice
 
 from settings import *
@@ -25,31 +25,22 @@ class Coin:
         self.path_list = path_list
         self.flag = flag
 
-
     def onClick(self, event):
 
         if self.disable:
             return
 
-        current_flag = self.flag
-        print(current_flag)
         count = 0
-
-        for goti in colors[current_flag]:
+        for goti in colors[self.flag]:
             if goti.is_at_home():
                 count += 1
 
         roll = Dice.roll
-
-        if count == 4 and (6 not in roll):
+        if (count == 4) and (6 not in roll):
+            Dice.set(self.flag) 
             roll = []
             Dice.roll = []
-            
-        if len(roll) == 0:
-            Dice.set(self.flag)
-        
-        print(roll)    
-        
+
         if self.is_at_home():
             if 6 in roll:
                 self.canvas.coords(self.img, self.path_list[0][0] + 2, self.path_list[0][1] + 2)
@@ -63,12 +54,19 @@ class Coin:
                 self.canvas.coords(self.img, self.path_list[self.curr_index][0] + 2, self.path_list[self.curr_index][1] + 2)
                 self.curr_x = self.path_list[self.curr_index][0]
                 self.curr_y = self.path_list[self.curr_index][1]
+                self.canvas.update()
+                sleep(0.05)
             Dice.remove()
         
         if len(Dice.roll) == 0:
             Dice.set(self.flag)
-            next_label = tk.Label(ludo.get_frame(), text="{} turn's Over Next Roll".format(self.color.title()), font=(None, 20), fg=self.color, width=30, height=3)
-            next_label.place(x=100, y=150) 
+
+            next_label = tk.Label(ludo.get_frame(), text=self.get_next_label_text(), font=(None, 20), width=30, height=3,
+                                    borderwidth=3, relief=tk.SUNKEN)
+            next_label.place(x=100, y=100)
+            roll_label = tk.Label(ludo.get_frame(), text='ROLL PLEASE', font=(None, 20), width=30, height=3, borderwidth=3, relief=tk.RAISED)
+            roll_label.place(x=100, y=200)
+
 
 
     def change_state(self, flag):
@@ -82,6 +80,9 @@ class Coin:
             return True
         else:
             return False
+
+    def get_next_label_text(self):
+        return '{} turn over, Now {} turn'.format(self.color.title(), turn[self.flag])
 
 
 class Dice:
@@ -100,7 +101,11 @@ class Dice:
         elif cls.roll[-1] == 6 :
             cls.roll.append(temp)
 
-        roll_label = tk.Label(ludo.get_frame(), text='{}'.format(' | '.join([str(x) for x in cls.roll])), font=(None, 20), width=30, height=3)
+        if cls.roll.count(6) == 3:
+            cls.roll = []
+
+        roll_label = tk.Label(ludo.get_frame(), text='{}'.format(' | '.join([str(x) for x in cls.roll])),
+                                 font=(None, 20), width=30, height=3, borderwidth=3, relief=tk.RAISED)
         roll_label.place(x=100, y=200)
 
     @classmethod
@@ -145,12 +150,17 @@ root.title('Ludo')
 ludo = LudoBoard(root)
 ludo.create()
 
+start_label = tk.Label(ludo.get_frame(), text='! START ! Let\'s Begin with Green.', font=(None, 20),
+                         width=30, height=3, borderwidth=3, relief=tk.SUNKEN)
+start_label.place(x=100, y=100)
+
+turn = ['Red', 'Blue', 'Yellow', 'Green']
+
 colors = []
 colors.append(align(2*Board.SQUARE_SIZE, 2*Board.SQUARE_SIZE, color='green', path_list=path.green_path, flag=0))
 colors.append(align(2*Board.SQUARE_SIZE, 11*Board.SQUARE_SIZE, color='red', path_list=path.red_path, flag=1))
 colors.append(align(11*Board.SQUARE_SIZE, 11*Board.SQUARE_SIZE, color='blue', path_list=path.blue_path, flag=2))
 colors.append(align(11*Board.SQUARE_SIZE, 2*Board.SQUARE_SIZE, color='yellow', path_list=path.yellow_path, flag=3))
-
 
 button = tk.Button(ludo.get_frame(), text='ROLL', command=Dice.rolling, width=20, height=2)
 button.place(x=220, y=470)

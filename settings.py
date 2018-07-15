@@ -25,6 +25,7 @@ class Text:
 
     MADE_BY = 'Made By: Mansi Agrawal & Shivam Gupta'
     HEADER =  'LUDO - THE GAME'
+    DISCLAIMER = '--RULE: AFTER EVERY COLOR CHANCE CLICK THE COIN--'
 
 
 class Path:
