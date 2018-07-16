@@ -1,6 +1,7 @@
 import tkinter as tk
 from time import sleep
 from random import choice
+import tkinter.messagebox
 
 from settings import *
 from board import *
@@ -24,6 +25,7 @@ class Coin:
         self.disable = True
         self.path_list = path_list
         self.flag = flag
+        self.win = 0
 
     def onClick(self, event):
 
@@ -40,14 +42,19 @@ class Coin:
 
         roll = Dice.roll
         if roll[-1] == 6:
-            six_label = tk.Label(ludo.get_frame(), text='You Got 6, Please Roll Again', font=(None, 20), width=30, height=3, borderwidth=3, relief=tk.RAISED)
-            six_label.place(x=100, y=20)
+            tkinter.messagebox.showerror('Error','You got 6, Please Roll Again')
             return
 
         if (count is 4 and 6 not in roll) or roll.count(6) is 3:
             Dice.set(self.flag) 
             roll = []
             Dice.roll = []
+        
+        if len(Dice.roll)!=0 :
+            n = len(self.path_list)
+            max_moves = n - self.curr_index - 1
+            if max_moves < roll[0]:
+                return
 
         if self.is_at_home():
             if 6 in roll:
@@ -64,6 +71,8 @@ class Coin:
                 self.curr_y = self.path_list[self.curr_index][1]
                 self.canvas.update()
                 sleep(0.05)
+            if self.curr_index == len(self.path_list)-1:
+            	self.win = 1
             Dice.remove()
 
         if len(Dice.roll) == 0:
