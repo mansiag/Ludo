@@ -18,7 +18,7 @@ class Coin:
         self.color = color
         self.coin_index = coin_index
         self.curr_index = -1
-        self.coin = ImageTk.PhotoImage(Image.open('./assets/' + color + '.gif'))
+        self.coin = ImageTk.PhotoImage(Image.open('./assets/' + color + '.png'))
         self.img =  self.canvas.create_image(x, y, anchor=tk.NW, image=self.coin)
         self.canvas.tag_bind(self.img, '<1>', self.onClick)
         self.disable = True
@@ -36,7 +36,7 @@ class Coin:
                 count += 1
 
         roll = Dice.roll
-        if (count == 4) and (6 not in roll):
+        if (count is 4 and 6 not in roll) or roll.count(6) is 3:
             Dice.set(self.flag) 
             roll = []
             Dice.roll = []
@@ -57,15 +57,21 @@ class Coin:
                 self.canvas.update()
                 sleep(0.05)
             Dice.remove()
-        
+
         if len(Dice.roll) == 0:
             Dice.set(self.flag)
 
             next_label = tk.Label(ludo.get_frame(), text=self.get_next_label_text(), font=(None, 20), width=30, height=3,
                                     borderwidth=3, relief=tk.SUNKEN)
             next_label.place(x=100, y=100)
+
             roll_label = tk.Label(ludo.get_frame(), text='ROLL PLEASE', font=(None, 20), width=30, height=3, borderwidth=3, relief=tk.RAISED)
             roll_label.place(x=100, y=200)
+
+            img = ImageTk.PhotoImage(Image.open('./assets/trans.png'))
+            image_label = tk.Label(ludo.get_frame(), width=100, height=100, image=img, bg=Color.CYAN)
+            image_label.image = img
+            image_label.place(x=250, y=300)
 
 
 
@@ -88,7 +94,7 @@ class Coin:
 class Dice:
 
     roll = []
-    
+
     @classmethod
     def rolling(cls):
         temp = choice(range(1, 8))
@@ -97,12 +103,22 @@ class Dice:
 
         if len(cls.roll) == 0 :
             cls.roll.append(temp)
-                   
         elif cls.roll[-1] == 6 :
             cls.roll.append(temp)
 
-        if cls.roll.count(6) == 3:
-            cls.roll = []
+        dice = {
+            1: 'de1.png',
+            2: 'de2.png',
+            3: 'de3.png',
+            4: 'de4.png',
+            5: 'de5.png',
+            6: 'de6.png',
+        }.get(cls.roll[-1], None)
+
+        img = ImageTk.PhotoImage(Image.open('./assets/{}'.format(dice)))
+        image_label = tk.Label(ludo.get_frame(), width=100, height=100, image=img, bg=Color.CYAN)
+        image_label.image = img
+        image_label.place(x=250, y=300)
 
         roll_label = tk.Label(ludo.get_frame(), text='{}'.format(' | '.join([str(x) for x in cls.roll])),
                                  font=(None, 20), width=30, height=3, borderwidth=3, relief=tk.RAISED)
@@ -163,7 +179,7 @@ colors.append(align(11*Board.SQUARE_SIZE, 11*Board.SQUARE_SIZE, color='blue', pa
 colors.append(align(11*Board.SQUARE_SIZE, 2*Board.SQUARE_SIZE, color='yellow', path_list=path.yellow_path, flag=3))
 
 button = tk.Button(ludo.get_frame(), text='ROLL', command=Dice.rolling, width=20, height=2)
-button.place(x=220, y=470)
+button.place(x=210, y=470)
 
 
 for i in range(4):

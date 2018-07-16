@@ -35,7 +35,7 @@ class LudoBoard:
             fill=color,
             width=width
         )
-    
+
     def draw_circle(self, x1, y1, x2, y2, color):
         self.canvas.create_oval(
             x1 * Board.SQUARE_SIZE,
@@ -63,7 +63,7 @@ class LudoBoard:
                     elif j > 8:
                         self.draw_rectangle(i + 0.5, j + 0.5, i + 1.5, j + 1.5, Color.RED, 1)
                         self.draw_rectangle(j + 0.5, i + 0.5, j + 1.5, i + 1.5, Color.BLUE, 1)
-        
+
         for i, j in Board.POSITIVE_V:
             if i > j:
                 self.draw_rectangle(i + 0.5, j + 0.5, i + 1.5, j + 1.5, Color.YELLOW, 1)
@@ -77,7 +77,7 @@ class LudoBoard:
             else:
                 self.draw_rectangle(j + 0.5, i + 0.5, j + 1.5, i + 1.5, Color.BLUE, 1)
             self.draw_circle(j + 0.7, i + 0.7, j + 1.3, i + 1.3, Color.GRAY)
-            
+
     def home(self):
        
         for i, j in Board.POINTS:
@@ -124,11 +124,10 @@ class LudoBoard:
 
     def create_panel(self):
         self.frame.place(x=700, y=80)
-        self.Quit.place(x=920, y=620)
+        self.Quit.place(x=910, y=620)
         self.title_bar.pack(side=tk.TOP, fill=tk.X)
         self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
         self.disclaimer.pack(side=tk.TOP, fill=tk.X)
-
 
     def create(self):
         self.path()
