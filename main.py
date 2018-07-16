@@ -1,7 +1,6 @@
 import tkinter as tk
 from time import sleep
 from random import choice
-#import mp3play
 
 from settings import *
 from board import *
@@ -30,6 +29,9 @@ class Coin:
 
         if self.disable:
             return
+        
+        if len(Dice.roll) == 0:
+            return
 
         count = 0
         for goti in colors[self.flag]:
@@ -38,9 +40,9 @@ class Coin:
 
         roll = Dice.roll
         if roll[-1] == 6:
-        	six_label = tk.Label(ludo.get_frame(), text='You Got 6, Please Roll Again', font=(None, 20), width=30, height=3, borderwidth=3, relief=tk.RAISED)
-        	six_label.place(x=100, y=20)
-        	return
+            six_label = tk.Label(ludo.get_frame(), text='You Got 6, Please Roll Again', font=(None, 20), width=30, height=3, borderwidth=3, relief=tk.RAISED)
+            six_label.place(x=100, y=20)
+            return
 
         if (count is 4 and 6 not in roll) or roll.count(6) is 3:
             Dice.set(self.flag) 
