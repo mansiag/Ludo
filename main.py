@@ -1,6 +1,7 @@
 import tkinter as tk
 from time import sleep
 from random import choice
+#import mp3play
 
 from settings import *
 from board import *
@@ -36,6 +37,11 @@ class Coin:
                 count += 1
 
         roll = Dice.roll
+        if roll[-1] == 6:
+        	six_label = tk.Label(ludo.get_frame(), text='You Got 6, Please Roll Again', font=(None, 20), width=30, height=3, borderwidth=3, relief=tk.RAISED)
+        	six_label.place(x=100, y=20)
+        	return
+
         if (count is 4 and 6 not in roll) or roll.count(6) is 3:
             Dice.set(self.flag) 
             roll = []
@@ -82,10 +88,8 @@ class Coin:
             self.disable = True
 
     def is_at_home(self):
-        if self.curr_x == self.home_x and self.curr_y == self.home_y:
-            return True
-        else:
-            return False
+        return self.curr_x == self.home_x and self.curr_y == self.home_y
+        
 
     def get_next_label_text(self):
         return '{} turn over, Now {} turn'.format(self.color.title(), turn[self.flag])
