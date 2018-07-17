@@ -45,7 +45,7 @@ class Coin:
             tkinter.messagebox.showerror('Error','You got 6, Please Roll Again')
             return
 
-        if (count is 4 and 6 not in roll) or roll.count(6) is 3:
+        if (count is 4 and 6 not in roll) or roll.count(6) >= 3:
             Dice.set(self.flag) 
             roll = []
             Dice.roll = []
@@ -55,40 +55,58 @@ class Coin:
             max_moves = n - self.curr_index - 1
             if max_moves < roll[0]:
                 return
-
+        
+        check = (False,0,0)
         if self.is_at_home():
             if 6 in roll:
-                self.canvas.coords(self.img, self.path_list[0][0] + 2, self.path_list[0][1] + 2)
+                pad = self.check_Overlap(0)
+                self.canvas.coords(self.img, self.path_list[0][0] + 5 + pad*5, self.path_list[0][1] + 5)
                 self.curr_x = self.path_list[0][0]
                 self.curr_y = self.path_list[0][1]
                 self.curr_index = 0
                 Dice.remove_by_index(6)
         else:
-            for i in range(roll[0]):
+            check = self.can_attack(self.curr_index+roll[0])
+            #print(check[0])
+            pad = self.check_Overlap(self.curr_index+roll[0])
+
+            for i in range(roll[0] - 1):
                 self.curr_index += 1
-                self.canvas.coords(self.img, self.path_list[self.curr_index][0] + 2, self.path_list[self.curr_index][1] + 2)
+                self.canvas.coords(self.img, self.path_list[self.curr_index][0] + 5, self.path_list[self.curr_index][1] + 5)
                 self.curr_x = self.path_list[self.curr_index][0]
                 self.curr_y = self.path_list[self.curr_index][1]
                 self.canvas.update()
                 sleep(0.05)
+
+            self.curr_index += 1
+            self.canvas.coords(self.img, self.path_list[self.curr_index][0] + 5 + pad*5, self.path_list[self.curr_index][1] + 5)
+            if check[0]:
+                colors[check[1]][check[2]].goto_home()
+            self.canvas.update()
+            sleep(0.05)
+            if check[0]:
+                tkinter.messagebox.showinfo('info','You killed another coin! Now you get another chance.Please Roll Dice Again')
+                Dice.set(self.flag-1)
             if self.curr_index == len(self.path_list)-1:
-            	self.win = 1
+                self.win = 1
+
             Dice.remove()
 
-        if len(Dice.roll) == 0:
-            Dice.set(self.flag)
+        if not check[0]:
+            if len(Dice.roll) == 0:
+                Dice.set(self.flag)
 
-            next_label = tk.Label(ludo.get_frame(), text=self.get_next_label_text(), font=(None, 20), width=30, height=3,
+                next_label = tk.Label(ludo.get_frame(), text=self.get_next_label_text(), font=(None, 20), width=30, height=3,
                                     borderwidth=3, relief=tk.SUNKEN)
-            next_label.place(x=100, y=100)
+                next_label.place(x=100, y=100)
 
-            roll_label = tk.Label(ludo.get_frame(), text='ROLL PLEASE', font=(None, 20), width=30, height=3, borderwidth=3, relief=tk.RAISED)
-            roll_label.place(x=100, y=200)
+                roll_label = tk.Label(ludo.get_frame(), text='ROLL PLEASE', font=(None, 20), width=30, height=3, borderwidth=3, relief=tk.RAISED)
+                roll_label.place(x=100, y=200)
 
-            img = ImageTk.PhotoImage(Image.open('./assets/trans.png'))
-            image_label = tk.Label(ludo.get_frame(), width=100, height=100, image=img, bg=Color.CYAN)
-            image_label.image = img
-            image_label.place(x=250, y=300)
+                img = ImageTk.PhotoImage(Image.open('./assets/trans.png'))
+                image_label = tk.Label(ludo.get_frame(), width=100, height=100, image=img, bg=Color.CYAN)
+                image_label.image = img
+                image_label.place(x=250, y=300)
 
 
 
@@ -105,6 +123,33 @@ class Coin:
     def get_next_label_text(self):
         return '{} turn over, Now {} turn'.format(self.color.title(), turn[self.flag])
 
+    def check_Overlap(self, idx):
+        count = 0
+        if self.path_list[idx][2]:
+            x = self.path_list[idx][0]
+            y = self.path_list[idx][1]
+            for i in range(4):
+                for j in range(4):
+                    if colors[i][j].curr_x == x and colors[i][j].curr_y == y:
+                        count+=1
+        return count
+
+    def can_attack(self, idx):
+        if not self.path_list[idx][2]:
+            x = self.path_list[idx][0]
+            y = self.path_list[idx][1]
+            for i in range(4):
+                for j in range(4):
+                    if colors[i][j].curr_x == x and colors[i][j].curr_y == y:
+                        return (True,i,j)
+        return (False,0,0)
+
+
+    def goto_home(self):
+        self.canvas.coords(self.img, self.home_x+5, self.home_y+5)
+        self.curr_x = self.home_x
+        self.curr_y = self.home_y
+        self.curr_index = -1
 
 class Dice:
 
