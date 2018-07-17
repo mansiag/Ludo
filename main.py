@@ -89,17 +89,17 @@ class Coin:
 
             self.canvas.update()
             sleep(0.05)
-            if check[0]:
-                tkinter.messagebox.showinfo('info','You killed another coin! Now you get another chance.Please Roll Dice Again')
-                next_label = tk.Label(ludo.get_frame(),self.color.title()+'Roll Again', font=(None, 20), width=30, height=3,
-                                    borderwidth=3, relief=tk.SUNKEN)
-                next_label.place(x=100, y=100)
-                Dice.set(self.flag - 1)
-
+            
             if self.curr_index == len(self.path_list) - 1:
                 self.win = 1
 
             Dice.remove()
+            if check[0]:
+                tkinter.messagebox.showinfo('info','You killed another coin! Now you get another chance.Please Roll Dice Again')
+                Dice.update_state()
+                Dice.set(self.flag - 1)
+
+
 
         if not check[0]:
             if len(Dice.roll) == 0:
@@ -163,6 +163,7 @@ class Coin:
 class Dice:
 
     roll = []
+    append_state = False
 
     @classmethod
     def rolling(cls):
@@ -174,6 +175,9 @@ class Dice:
             cls.roll.append(temp)
         elif cls.roll[-1] == 6 :
             cls.roll.append(temp)
+        elif cls.append_state :
+        	cls.roll.appeand(temp)
+        	cls.append_state = False
 
         dice = {
             1: 'de1.png',
@@ -210,6 +214,11 @@ class Dice:
     @classmethod
     def remove_by_index(cls, ex):
         del cls.roll[cls.roll.index(ex)]
+
+    @classmethod
+    def update_state(cls):
+    	cls.append_state = True
+
 
 
 def align(x, y, color, path_list, flag):
