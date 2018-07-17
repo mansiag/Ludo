@@ -126,9 +126,9 @@ class Coin:
                     if colors[i][j].curr_x == x and colors[i][j].curr_y == y:
                         count += 1
         else:
-        	for i in range(4):
-        		if colors[self.flag][i].curr_x == x and colors[self.flag][i].curr_y == y:
-        			count += 1
+            for i in range(4):
+                if colors[self.flag][i].curr_x == x and colors[self.flag][i].curr_y == y:
+                    count += 1
 
         return count
 
@@ -149,7 +149,7 @@ class Coin:
         self.curr_index = -1
 
     def next_turn(self):
-    	if len(Dice.roll) == 0:
+        if len(Dice.roll) == 0:
                 Dice.set(self.flag)
 
                 next_label = tk.Label(ludo.get_frame(), text=self.get_next_label_text(), font=(None, 20), width=30, height=3,
@@ -182,8 +182,8 @@ class Dice:
         elif cls.roll[-1] == 6 :
             cls.roll.append(temp)
         elif cls.append_state :
-        	cls.roll.append(temp)
-        	cls.append_state = False
+            cls.roll.append(temp)
+            cls.append_state = False
 
         dice = {
             1: 'de1.png',
@@ -223,7 +223,7 @@ class Dice:
 
     @classmethod
     def update_state(cls):
-    	cls.append_state = True
+        cls.append_state = True
 
 
 
