@@ -49,7 +49,9 @@ class Coin:
             Dice.set(self.flag) 
             roll = []
             Dice.roll = []
-        
+            self.next_turn()
+            return
+
         if len(Dice.roll)!=0 :
             n = len(self.path_list)
             max_moves = n - self.curr_index - 1
@@ -57,6 +59,7 @@ class Coin:
                 return
         
         check = (False,0,0)
+        pad = 0
 
         if self.is_at_home():
             if 6 in roll:
@@ -100,20 +103,7 @@ class Coin:
 
 
         if not check[0]:
-            if len(Dice.roll) == 0:
-                Dice.set(self.flag)
-
-                next_label = tk.Label(ludo.get_frame(), text=self.get_next_label_text(), font=(None, 20), width=30, height=3,
-                                    borderwidth=3, relief=tk.SUNKEN)
-                next_label.place(x=100, y=100)
-
-                roll_label = tk.Label(ludo.get_frame(), text='ROLL PLEASE', font=(None, 20), width=30, height=3, borderwidth=3, relief=tk.RAISED)
-                roll_label.place(x=100, y=200)
-
-                img = ImageTk.PhotoImage(Image.open('./assets/trans.png'))
-                image_label = tk.Label(ludo.get_frame(), width=100, height=100, image=img, bg=Color.CYAN)
-                image_label.image = img
-                image_label.place(x=250, y=300)
+            self.next_turn()
 
 
 
@@ -161,6 +151,24 @@ class Coin:
         self.curr_x = self.home_x
         self.curr_y = self.home_y
         self.curr_index = -1
+
+    def next_turn(self):
+    	if len(Dice.roll) == 0:
+                Dice.set(self.flag)
+
+                next_label = tk.Label(ludo.get_frame(), text=self.get_next_label_text(), font=(None, 20), width=30, height=3,
+                                    borderwidth=3, relief=tk.SUNKEN)
+                next_label.place(x=100, y=100)
+
+                roll_label = tk.Label(ludo.get_frame(), text='ROLL PLEASE', font=(None, 20), width=30, height=3, borderwidth=3, relief=tk.RAISED)
+                roll_label.place(x=100, y=200)
+
+                img = ImageTk.PhotoImage(Image.open('./assets/trans.png'))
+                image_label = tk.Label(ludo.get_frame(), width=100, height=100, image=img, bg=Color.CYAN)
+                image_label.image = img
+                image_label.place(x=250, y=300)
+
+
 
 class Dice:
 
