@@ -25,6 +25,7 @@ class Text:
 
     MADE_BY = 'Made By: Mansi Agrawal & Shivam Gupta'
     HEADER =  'LUDO - THE GAME'
+    DISCLAIMER = '--RULE: AFTER EVERY COLOR CHANCE CLICK THE COIN--'
 
 
 class Path:
@@ -86,7 +87,7 @@ class Path:
         self.update_coordinates(220, 340, 380, 260, 6)
         self.direct(pow_index=3, direction='left')
         #12
-        self.update_coordinates(20, 300, 580, 300, 6)
+        self.update_coordinates(20, 300, 580, 300, 7)
         self.direct(direction='right')
 
     def direct_horizontal(self, k, pow_index = -1):
