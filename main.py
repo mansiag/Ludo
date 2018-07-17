@@ -47,19 +47,17 @@ class Coin:
 
         if (count is 4 and 6 not in roll) or roll.count(6) >= 3:
             Dice.set(self.flag) 
-            roll = []
             Dice.roll = []
             self.next_turn()
             return
 
-        if len(Dice.roll)!=0 :
+        if len(Dice.roll) != 0 :
             n = len(self.path_list)
             max_moves = n - self.curr_index - 1
             if max_moves < roll[0]:
                 return
         
         check = (False,0,0)
-        pad = 0
 
         if self.is_at_home():
             if 6 in roll:
@@ -99,8 +97,6 @@ class Coin:
                 tkinter.messagebox.showinfo('info','You killed another coin! Now you get another chance.Please Roll Dice Again')
                 Dice.update_state()
                 Dice.set(self.flag - 1)
-
-
 
         if not check[0]:
             self.next_turn()
