@@ -27,16 +27,6 @@ class Coin:
         self.flag = flag
         self.win = 0
 
-
-    def onRoll(self, event):
-        count = self.check_home()
-        if (count is 4 and 6 not in Dice.roll) or Dice.roll.count(6) >= 3:
-            Dice.set(self.flag)
-            Dice.roll = []
-            self.next_turn()
-        else:
-            self.moveCoin()
-
     def moveCoin(self, event):
 
         if self.disable:
