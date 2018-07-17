@@ -192,16 +192,22 @@ class Dice:
     @classmethod
     def start(cls):
         Dice.rolling()
-        if 6 not in cls.roll or cls.roll.count(6) > 2 :
+        if cls.roll.count(6) >= 3:
+            Dice.update_panel()
+
+        if 6 not in cls.roll:
             check = 0
             for goti in colors[cls.chance]:
                 if goti.is_at_home():
                     check += 1
             if check is 4:
-                root.update()
-                sleep(0.5)
-                Dice.set(cls.chance)
-                cls.roll = []
+                Dice.update_panel()
+    @classmethod
+    def update_panel(cls):
+        root.update()
+        sleep(0.5)
+        Dice.set(cls.chance)
+        cls.roll = []
 
     @classmethod
     def set(cls, flag):
