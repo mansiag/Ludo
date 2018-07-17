@@ -68,9 +68,7 @@ class Coin:
                 Dice.remove_by_index(6)
         else:
             check = self.can_attack(self.curr_index+roll[0])
-            print(check)
             pad = self.check_Overlap(self.curr_index+roll[0])
-            print(pad)
 
             for i in range(roll[0] - 1):
                 self.curr_index += 1
@@ -134,13 +132,18 @@ class Coin:
 
     def check_Overlap(self, idx):
         count = 0
+        x = self.path_list[idx][0]
+        y = self.path_list[idx][1]
         if self.path_list[idx][2]:
-            x = self.path_list[idx][0]
-            y = self.path_list[idx][1]
             for i in range(4):
                 for j in range(4):
                     if colors[i][j].curr_x == x and colors[i][j].curr_y == y:
                         count += 1
+        else:
+        	for i in range(4):
+        		if colors[self.flag][i].curr_x == x and colors[self.flag][i].curr_y == y:
+        			count += 1
+
         return count
 
     def can_attack(self, idx):
@@ -152,7 +155,6 @@ class Coin:
                     if colors[i][j].curr_x == x and colors[i][j].curr_y == y and colors[i][j].color != self.color:
                         return (True, i, j)
         return (False, 0, 0)
-
 
     def goto_home(self):
         self.canvas.coords(self.img, self.home_x + 5, self.home_y + 5)
@@ -176,7 +178,7 @@ class Dice:
         elif cls.roll[-1] == 6 :
             cls.roll.append(temp)
         elif cls.append_state :
-        	cls.roll.appeand(temp)
+        	cls.roll.append(temp)
         	cls.append_state = False
 
         dice = {
