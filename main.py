@@ -68,7 +68,9 @@ class Coin:
                 Dice.remove_by_index(6)
         else:
             check = self.can_attack(self.curr_index+roll[0])
+            print(check)
             pad = self.check_Overlap(self.curr_index+roll[0])
+            print(pad)
 
             for i in range(roll[0] - 1):
                 self.curr_index += 1
@@ -80,6 +82,8 @@ class Coin:
 
             self.curr_index += 1
             self.canvas.coords(self.img, self.path_list[self.curr_index][0] + 5 + pad*4, self.path_list[self.curr_index][1] + 5)
+            self.curr_x = self.path_list[self.curr_index][0]
+            self.curr_y = self.path_list[self.curr_index][1]
             if check[0]:
                 colors[check[1]][check[2]].goto_home()
 
@@ -87,6 +91,9 @@ class Coin:
             sleep(0.05)
             if check[0]:
                 tkinter.messagebox.showinfo('info','You killed another coin! Now you get another chance.Please Roll Dice Again')
+                next_label = tk.Label(ludo.get_frame(),self.color.title()+'Roll Again', font=(None, 20), width=30, height=3,
+                                    borderwidth=3, relief=tk.SUNKEN)
+                next_label.place(x=100, y=100)
                 Dice.set(self.flag - 1)
 
             if self.curr_index == len(self.path_list) - 1:
@@ -142,7 +149,7 @@ class Coin:
             y = self.path_list[idx][1]
             for i in range(4):
                 for j in range(4):
-                    if colors[i][j].curr_x == x and colors[i][j].curr_y == y:
+                    if colors[i][j].curr_x == x and colors[i][j].curr_y == y and colors[i][j].color != self.color:
                         return (True, i, j)
         return (False, 0, 0)
 
