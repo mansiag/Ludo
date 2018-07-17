@@ -21,37 +21,36 @@ class Coin:
         self.curr_index = -1
         self.coin = ImageTk.PhotoImage(Image.open('./assets/{}.png'.format(color)))
         self.img =  self.canvas.create_image(x, y, anchor=tk.NW, image=self.coin)
-        self.canvas.tag_bind(self.img, '<1>', self.onClick)
+        self.canvas.tag_bind(self.img, '<1>', self.moveCoin)
         self.disable = True
         self.path_list = path_list
         self.flag = flag
         self.win = 0
 
-    def onClick(self, event):
+
+    def onRoll(self, event):
+        count = self.check_home()
+        if (count is 4 and 6 not in Dice.roll) or Dice.roll.count(6) >= 3:
+            Dice.set(self.flag)
+            Dice.roll = []
+            self.next_turn()
+        else:
+            self.moveCoin()
+
+    def moveCoin(self, event):
 
         if self.disable:
             return
         
-        if len(Dice.roll) == 0:
+        roll = Dice.roll
+        if len(roll) == 0:
             return
 
-        count = 0
-        for goti in colors[self.flag]:
-            if goti.is_at_home():
-                count += 1
-
-        roll = Dice.roll
         if roll[-1] == 6:
             tkinter.messagebox.showerror('Error','You got 6, Please Roll Again')
             return
 
-        if (count is 4 and 6 not in roll) or roll.count(6) >= 3:
-            Dice.set(self.flag) 
-            Dice.roll = []
-            self.next_turn()
-            return
-
-        if len(Dice.roll) != 0 :
+        if len(roll) != 0 :
             n = len(self.path_list)
             max_moves = n - self.curr_index - 1
             if max_moves < roll[0]:
@@ -68,8 +67,8 @@ class Coin:
                 self.curr_index = 0
                 Dice.remove_by_index(6)
         else:
-            check = self.can_attack(self.curr_index+roll[0])
-            pad = self.check_overlap(self.curr_index+roll[0])
+            check = self.can_attack(self.curr_index + roll[0])
+            pad = self.check_overlap(self.curr_index + roll[0])
 
             for i in range(roll[0] - 1):
                 self.curr_index += 1
@@ -88,7 +87,7 @@ class Coin:
 
             self.canvas.update()
             sleep(0.05)
-            
+
             if self.curr_index == len(self.path_list) - 1:
                 self.win = 1
 
@@ -113,7 +112,15 @@ class Coin:
         
 
     def get_next_label_text(self):
-        return '{} turn over, Now {} turn'.format(self.color.title(), turn[self.flag])
+        return 
+
+    def check_home(self):
+        count = 0
+        for goti in colors[self.flag]:
+            if goti.is_at_home():
+                count += 1
+
+        return count
 
     def check_overlap(self, idx):
         count = 0
@@ -148,31 +155,21 @@ class Coin:
         self.curr_y = self.home_y
         self.curr_index = -1
 
+
     def next_turn(self):
         if len(Dice.roll) == 0:
-                Dice.set(self.flag)
-
-                next_label = tk.Label(ludo.get_frame(), text=self.get_next_label_text(), font=(None, 20), width=30, height=3,
-                                    borderwidth=3, relief=tk.SUNKEN)
-                next_label.place(x=100, y=100)
-
-                roll_label = tk.Label(ludo.get_frame(), text='ROLL PLEASE', font=(None, 20), width=30, height=3, borderwidth=3, relief=tk.RAISED)
-                roll_label.place(x=100, y=200)
-
-                img = ImageTk.PhotoImage(Image.open('./assets/trans.png'))
-                image_label = tk.Label(ludo.get_frame(), width=100, height=100, image=img, bg=Color.CYAN)
-                image_label.image = img
-                image_label.place(x=250, y=300)
+            Dice.set(self.flag)
 
 
 class Dice:
 
+    chance = 0
     roll = []
     append_state = False
 
     @classmethod
     def rolling(cls):
-        temp = choice(range(1, 8))
+        temp = choice(range(1, 9))
         if temp > 6:
             temp = 6
 
@@ -203,14 +200,42 @@ class Dice:
         roll_label.place(x=100, y=200)
 
     @classmethod
+    def start(cls):
+        Dice.rolling()
+        if 6 not in cls.roll or cls.roll.count(6) > 2 :
+            check = 0
+            for goti in colors[cls.chance]:
+                if goti.is_at_home():
+                    check += 1
+            if check is 4:
+                root.update()
+                sleep(0.5)
+                Dice.set(cls.chance)
+                cls.roll = []
+
+    @classmethod
     def set(cls, flag):
         flag += 1
+        cls.chance = flag
         if flag == 4:
-            flag = 0 
+            cls.chance = flag = 0
 
         for i in range(4):
             for j in range(4):
                 colors[i][j].change_state(flag)
+
+
+        next_label = tk.Label(ludo.get_frame(), text='{} turn'.format(turn[flag]), font=(None, 20), width=30, height=3,
+                            borderwidth=3, relief=tk.SUNKEN)
+        next_label.place(x=100, y=100)
+
+        roll_label = tk.Label(ludo.get_frame(), text='ROLL PLEASE', font=(None, 20), width=30, height=3, borderwidth=3, relief=tk.RAISED)
+        roll_label.place(x=100, y=200)
+
+        img = ImageTk.PhotoImage(Image.open('./assets/trans.png'))
+        image_label = tk.Label(ludo.get_frame(), width=100, height=100, image=img, bg=Color.CYAN)
+        image_label.image = img
+        image_label.place(x=250, y=300)
 
     @classmethod
     def remove(cls):
@@ -223,7 +248,6 @@ class Dice:
     @classmethod
     def update_state(cls):
         cls.append_state = True
-
 
 
 def align(x, y, color, path_list, flag):
@@ -239,7 +263,6 @@ def align(x, y, color, path_list, flag):
 
 
 root = tk.Tk()
-flag = 0
 width = root.winfo_screenwidth()
 height = root.winfo_screenheight()
 root.geometry('{}x{}'.format(width, height))
@@ -252,7 +275,7 @@ start_label = tk.Label(ludo.get_frame(), text='! START ! Let\'s Begin with Green
                          width=30, height=3, borderwidth=3, relief=tk.SUNKEN)
 start_label.place(x=100, y=100)
 
-turn = ['Red', 'Blue', 'Yellow', 'Green']
+turn = ['Green', 'Red', 'Blue', 'Yellow']
 
 colors = []
 colors.append(align(2.1*Board.SQUARE_SIZE, 2.1*Board.SQUARE_SIZE, color='green', path_list=path.green_path, flag=0))
@@ -260,7 +283,7 @@ colors.append(align(2.1*Board.SQUARE_SIZE, 11.1*Board.SQUARE_SIZE, color='red', 
 colors.append(align(11.1*Board.SQUARE_SIZE, 11.1*Board.SQUARE_SIZE, color='blue', path_list=path.blue_path, flag=2))
 colors.append(align(11.1*Board.SQUARE_SIZE, 2.1*Board.SQUARE_SIZE, color='yellow', path_list=path.yellow_path, flag=3))
 
-button = tk.Button(ludo.get_frame(), text='ROLL', command=Dice.rolling, width=20, height=2)
+button = tk.Button(ludo.get_frame(), text='ROLL', command=Dice.start, width=20, height=2)
 button.place(x=210, y=470)
 
 for i in range(4):
