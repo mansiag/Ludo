@@ -1,11 +1,11 @@
 import tkinter as tk
+import tkinter.messagebox
 from time import sleep
 from random import choice
-import tkinter.messagebox
+from PIL import ImageTk, Image
 
 from settings import *
 from board import *
-from PIL import ImageTk, Image
 
 
 class Coin:
@@ -31,7 +31,7 @@ class Coin:
 
         if self.disable:
             return
-        
+
         roll = Dice.roll
         if len(roll) == 0:
             return
@@ -79,7 +79,6 @@ class Coin:
             sleep(0.05)
 
             Dice.remove()
-            
 
             if self.curr_index == len(self.path_list) - 1:
                 self.win = 1
@@ -99,6 +98,7 @@ class Coin:
     def congratulations(self):
         Dice.update_state()
         Dice.set(self.flag - 1)
+
         return True
 
     def change_state(self, flag):
@@ -164,7 +164,7 @@ class Dice:
 
     @classmethod
     def rolling(cls):
-        temp = choice(range(1, 9))
+        temp = choice(range(1, 8))
         if temp > 6:
             temp = 6
 
@@ -216,7 +216,6 @@ class Dice:
             for j in range(4):
                 colors[i][j].change_state(flag)
 
-
         next_label = tk.Label(ludo.get_frame(), text='{} turn'.format(turn[flag]), font=(None, 20), width=30, height=3,
                             borderwidth=3, relief=tk.SUNKEN)
         next_label.place(x=100, y=100)
@@ -248,7 +247,6 @@ class Dice:
         for goti in colors[cls.chance]:
             if goti.is_at_home():
                 check_1 += 1
-        
             else:
                 max_moves = len(goti.path_list) - goti.curr_index - 1
                 if max_moves < cls.roll[0]:
