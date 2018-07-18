@@ -88,6 +88,9 @@ class Coin:
                 Dice.set(self.flag - 1)
 
         if not check[0]:
+            if len(Dice.roll):
+                Dice.check_move_possibility()
+           
             self.next_turn()
 
 
@@ -190,14 +193,11 @@ class Dice:
         Dice.rolling()
         if cls.roll.count(6) >= 3:
             Dice.update_panel()
+            return
+        Dice.check_move_possibility()
 
-        if 6 not in cls.roll:
-            check = 0
-            for goti in colors[cls.chance]:
-                if goti.is_at_home():
-                    check += 1
-            if check is 4:
-                Dice.update_panel()
+        
+
     @classmethod
     def update_panel(cls):
         root.update()
@@ -241,6 +241,26 @@ class Dice:
     def update_state(cls):
         cls.append_state = True
 
+    @classmethod
+    def check_move_possibility(cls):
+        check_1 = 0
+        check_2 = 0
+        for goti in colors[cls.chance]:
+            if goti.is_at_home():
+                check_1 += 1
+        
+            else:
+                max_moves = len(goti.path_list) - goti.curr_index - 1
+                if max_moves < cls.roll[0]:
+                    check_2 += 1
+            
+        if 6 not in cls.roll:
+            if check_1 is 4 or check_1 + check_2 is 4 :
+                Dice.update_panel()
+
+        else:
+            if check_2 is 4:
+                Dice.update_panel()
 
 def align(x, y, color, path_list, flag):
     container = []
