@@ -11,7 +11,6 @@ class LudoBoard:
         self.frame = tk.Frame(master, width=Board.PANEL_WIDTH, height=Board.PANEL_HEIGHT, bg=Color.CYAN)
         self.Quit = tk.Button(master, text='QUIT', command=master.quit, relief=tk.RAISED, width=20, height=2)
         self.title_bar = tk.Label(master, text=Text.HEADER, fg=Color.DEFAULT, bg=Color.CYAN, font=(None, 40), relief=tk.RAISED)
-        self.disclaimer = tk.Label(master, text=Text.DISCLAIMER, bd=1, relief=tk.FLAT)
         self.status_bar = tk.Label(master, text=Text.MADE_BY, bd=1, relief=tk.SUNKEN)
 
     def draw_rectangle(self, lx, ly, bx, by, color, width):
@@ -79,7 +78,7 @@ class LudoBoard:
             self.draw_circle(j + 0.7, i + 0.7, j + 1.3, i + 1.3, Color.GRAY)
 
     def home(self):
-       
+
         for i, j in Board.POINTS:
 
             if i == 0 and j == 0:
@@ -127,7 +126,6 @@ class LudoBoard:
         self.Quit.place(x=910, y=620)
         self.title_bar.pack(side=tk.TOP, fill=tk.X)
         self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
-        self.disclaimer.pack(side=tk.TOP, fill=tk.X)
 
     def create(self):
         self.path()

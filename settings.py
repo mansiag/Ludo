@@ -25,7 +25,6 @@ class Text:
 
     MADE_BY = 'Made By: Mansi Agrawal & Shivam Gupta'
     HEADER =  'LUDO - THE GAME'
-    DISCLAIMER = '--RULE: AFTER EVERY COLOR CHANCE CLICK THE COIN--'
 
 
 class Path:
@@ -41,7 +40,6 @@ class Path:
         self.ry = None
         self.by = None
         self.count = None
-
 
     def update_coordinates(self, gx, gy, ry, by, count):
 
