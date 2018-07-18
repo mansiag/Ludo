@@ -47,7 +47,7 @@ class Coin:
                 return
 
         check = (False, 0, 0)
-
+        congrats = False
         if self.is_at_home():
             if 6 in roll:
                 pad = self.check_overlap(0)
@@ -78,20 +78,28 @@ class Coin:
             self.canvas.update()
             sleep(0.05)
 
+            Dice.remove()
+            
+
             if self.curr_index == len(self.path_list) - 1:
                 self.win = 1
+                tkinter.messagebox.showinfo('INFO','!! Congratulations !!\nPlease Roll Dice Again')
+                congrats = self.congratulations()
 
-            Dice.remove()
+
             if check[0]:
-                tkinter.messagebox.showinfo('INFO','You killed another coin! Now you get another chance. Please Roll Dice Again')
-                Dice.update_state()
-                Dice.set(self.flag - 1)
+                tkinter.messagebox.showinfo('INFO','You killed another coin! Now you get another chance.\nPlease Roll Dice Again')
+                congrats = self.congratulations()
 
-        if not check[0]:
+        if not check[0] and not congrats:
             if len(Dice.roll):
-                Dice.check_move_possibility()
-           
+                Dice.check_move_possibility()           
             self.next_turn()
+
+    def congratulations(self):
+        Dice.update_state()
+        Dice.set(self.flag - 1)
+        return True
 
     def change_state(self, flag):
         if flag == self.flag:
@@ -101,10 +109,6 @@ class Coin:
 
     def is_at_home(self):
         return self.curr_x == self.home_x and self.curr_y == self.home_y
-
-
-    def get_next_label_text(self):
-        return 
 
     def check_home(self):
         count = 0
@@ -142,7 +146,7 @@ class Coin:
         return (False, 0, 0)
 
     def goto_home(self):
-        self.canvas.coords(self.img, self.home_x + 4, self.home_y + 4)
+        self.canvas.coords(self.img, self.home_x, self.home_y)
         self.curr_x = self.home_x
         self.curr_y = self.home_y
         self.curr_index = -1
@@ -160,7 +164,7 @@ class Dice:
 
     @classmethod
     def rolling(cls):
-        temp = choice(range(1, 8))
+        temp = choice(range(1, 9))
         if temp > 6:
             temp = 6
 
