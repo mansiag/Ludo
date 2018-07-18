@@ -163,11 +163,7 @@ class Dice:
         if temp > 6:
             temp = 6
 
-        if len(cls.roll) == 0:
-            cls.roll.append(temp)
-        elif cls.roll[-1] == 6:
-            cls.roll.append(temp)
-        elif cls.append_state:
+        if len(cls.roll) == 0 or cls.roll[-1] == 6 or cls.append_state:
             cls.roll.append(temp)
             cls.append_state = False
 
