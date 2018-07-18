@@ -93,7 +93,6 @@ class Coin:
            
             self.next_turn()
 
-
     def change_state(self, flag):
         if flag == self.flag:
             self.disable = False
@@ -102,7 +101,7 @@ class Coin:
 
     def is_at_home(self):
         return self.curr_x == self.home_x and self.curr_y == self.home_y
-        
+
 
     def get_next_label_text(self):
         return 
@@ -147,7 +146,6 @@ class Coin:
         self.curr_x = self.home_x
         self.curr_y = self.home_y
         self.curr_index = -1
-
 
     def next_turn(self):
         if len(Dice.roll) == 0:
@@ -195,8 +193,6 @@ class Dice:
             Dice.update_panel()
             return
         Dice.check_move_possibility()
-
-        
 
     @classmethod
     def update_panel(cls):
@@ -253,7 +249,7 @@ class Dice:
                 max_moves = len(goti.path_list) - goti.curr_index - 1
                 if max_moves < cls.roll[0]:
                     check_2 += 1
-            
+
         if 6 not in cls.roll:
             if check_1 is 4 or check_1 + check_2 is 4 :
                 Dice.update_panel()
