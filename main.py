@@ -159,7 +159,7 @@ class Dice:
 
     @classmethod
     def rolling(cls):
-        temp = choice(range(1, 9))
+        temp = choice(range(1, 8))
         if temp > 6:
             temp = 6
 
