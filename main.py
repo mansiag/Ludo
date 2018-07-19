@@ -90,6 +90,14 @@ class Coin:
                 tkinter.messagebox.showinfo('INFO','You killed another coin! Now you get another chance.\nPlease Roll Dice Again')
                 congrats = self.congratulations()
 
+        if self.is_player_wins():
+            tkinter.messagebox.showinfo('INFO','{} Wins'.format(self.color.title()))
+            Dice.set(self.flag)
+
+        if self.is_gameover():
+            root.quit()
+
+
         if not check[0] and not congrats:
             if len(Dice.roll):
                 Dice.check_move_possibility()           
@@ -117,6 +125,37 @@ class Coin:
                 count += 1
 
         return count
+
+    def is_player_wins(self):
+        reached = 0
+        for goti in colors[self.flag]:
+            if goti.win:
+                reached += 1
+
+        return reached is 4
+
+    def is_gameover(self):
+        color_reached = 0
+
+        for i in range(4):
+            game = 0
+            for color in colors[i]:
+                if color.win:
+                    game += 1
+            if game is 4:
+                color_reached += 1
+
+        if color_reached is 3:
+            '''
+            tkinter.messagebox.showinfo(Rank
+                    1. {}
+                    2. {}
+                    3. {}
+                .format(*position))
+            '''
+        else:
+            return False
+        return True
 
     def check_overlap(self, idx):
         count = 0
