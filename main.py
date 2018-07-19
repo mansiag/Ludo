@@ -147,11 +147,7 @@ class Coin:
                 color_reached += 1
 
         if color_reached is 3:
-            tkinter.messagebox.showinfo('Game Over', '''Rank
-                    1. {}
-                    2. {}
-                    3. {}
-                '''.format(*position))
+            tkinter.messagebox.showinfo('Game Over', '\n\n1. {}\n\n2. {}\n\n3. {}'.format(*position))
         else:
             return False
         return True
