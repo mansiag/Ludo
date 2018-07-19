@@ -90,6 +90,14 @@ class Coin:
                 tkinter.messagebox.showinfo('INFO','You killed another coin! Now you get another chance.\nPlease Roll Dice Again')
                 congrats = self.congratulations()
 
+        if self.is_player_wins():
+            tkinter.messagebox.showinfo('INFO','{} Wins'.format(self.color.title()))
+            Dice.set(self.flag)
+
+        if self.is_gameover():
+            root.quit()
+
+
         if not check[0] and not congrats:
             if len(Dice.roll):
                 Dice.check_move_possibility()           
@@ -117,6 +125,37 @@ class Coin:
                 count += 1
 
         return count
+
+    def is_player_wins(self):
+        reached = 0
+        for goti in colors[self.flag]:
+            if goti.win:
+                reached += 1
+
+        return reached is 4
+
+    def is_gameover(self):
+        color_reached = 0
+
+        for i in range(4):
+            game = 0
+            for color in colors[i]:
+                if color.win:
+                    game += 1
+            if game is 4:
+                color_reached += 1
+
+        if color_reached is 3:
+            '''
+            tkinter.messagebox.showinfo(Rank
+                    1. {}
+                    2. {}
+                    3. {}
+                .format(*position))
+            '''
+        else:
+            return False
+        return True
 
     def check_overlap(self, idx):
         count = 0
@@ -299,6 +338,20 @@ colors.append(align(11.1*Board.SQUARE_SIZE, 2.1*Board.SQUARE_SIZE, color='yellow
 
 button = tk.Button(ludo.get_frame(), text='ROLL', command=Dice.start, width=20, height=2)
 button.place(x=210, y=470)
+
+welcome_msg = ''' Welcome Champs let's get into the game of LUDO :-) \n
+        Rules of the game:
+- The players roll a six-sided die in turns and can advance any of their coins on the track by the number of steps as displayed by the dice.\n
+- Once you get a six in a dice throw, you have to roll the dice again, and must use all scores while making the final selection of what coins to move where.\n
+- If you get a six three times in a row, your throws are reset and you have to lose that chance.\n
+- The coin can advance in the home run only if it reaches exactly inside the home pocket, or moves closer to it through the home run. For example, if the coin is four squares away from the home pocket and the player rolls a five, he must apply the throw to some other coin. \
+However, if you rolls a two, you can advance the coin by two squares and then it rests there until the next move.\n 
+    
+    Enjoy the game and have fun.
+        # Best of luck #
+'''
+tkinter.messagebox.showinfo('Welcome', welcome_msg)
+
 
 for i in range(4):
     for j in range(4):
