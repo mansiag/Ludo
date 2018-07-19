@@ -194,8 +194,7 @@ class Dice:
     def start(cls):
         Dice.rolling()
         if cls.roll.count(6) >= 3:
-            idx = cls.roll.index(6)
-            if [cls.roll[idx], cls.roll[idx+1], cls.roll[idx+2]] == [6, 6, 6]:
+            if [cls.roll[-1], cls.roll[-2], cls.roll[-3]] == [6, 6, 6]:
                 for i in range(3):
                    Dice.remove_by_index(6)
             if cls.roll == []:
