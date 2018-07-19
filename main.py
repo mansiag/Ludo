@@ -92,6 +92,7 @@ class Coin:
 
         if self.is_player_wins():
             tkinter.messagebox.showinfo('INFO','{} Wins'.format(self.color.title()))
+            position.append(self.color.title())
             Dice.set(self.flag)
 
         if self.is_gameover():
@@ -146,13 +147,11 @@ class Coin:
                 color_reached += 1
 
         if color_reached is 3:
-            '''
-            tkinter.messagebox.showinfo(Rank
+            tkinter.messagebox.showinfo('Game Over', '''Rank
                     1. {}
                     2. {}
                     3. {}
-                .format(*position))
-            '''
+                '''.format(*position))
         else:
             return False
         return True
@@ -329,7 +328,7 @@ start_label = tk.Label(ludo.get_frame(), text='! START ! Let\'s Begin with Green
 start_label.place(x=100, y=100)
 
 turn = ['Green', 'Red', 'Blue', 'Yellow']
-
+position = []
 colors = []
 colors.append(align(2.1*Board.SQUARE_SIZE, 2.1*Board.SQUARE_SIZE, color='green', path_list=path.green_path, flag=0))
 colors.append(align(2.1*Board.SQUARE_SIZE, 11.1*Board.SQUARE_SIZE, color='red', path_list=path.red_path, flag=1))
