@@ -198,6 +198,7 @@ class Dice:
             if [cls.roll[idx], cls.roll[idx+1], cls.roll[idx+2]] == [6, 6, 6]:
                 for i in range(3):
                    Dice.remove_by_index(6)
+            if cls.roll == []:
                 Dice.update_panel()
                 return
         Dice.check_move_possibility()
