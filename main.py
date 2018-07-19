@@ -339,6 +339,20 @@ colors.append(align(11.1*Board.SQUARE_SIZE, 2.1*Board.SQUARE_SIZE, color='yellow
 button = tk.Button(ludo.get_frame(), text='ROLL', command=Dice.start, width=20, height=2)
 button.place(x=210, y=470)
 
+welcome_msg = ''' Welcome Champs let's get into the game of LUDO :-) \n
+        Rules of the game:
+- The players roll a six-sided die in turns and can advance any of their coins on the track by the number of steps as displayed by the dice.\n
+- Once you get a six in a dice throw, you have to roll the dice again, and must use all scores while making the final selection of what coins to move where.\n
+- If you get a six three times in a row, your throws are reset and you have to lose that chance.\n
+- The coin can advance in the home run only if it reaches exactly inside the home pocket, or moves closer to it through the home run. For example, if the coin is four squares away from the home pocket and the player rolls a five, he must apply the throw to some other coin. \
+However, if you rolls a two, you can advance the coin by two squares and then it rests there until the next move.\n 
+    
+    Enjoy the game and have fun.
+        # Best of luck #
+'''
+tkinter.messagebox.showinfo('Welcome', welcome_msg)
+
+
 for i in range(4):
     for j in range(4):
         colors[i][j].change_state(0)
