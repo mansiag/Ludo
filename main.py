@@ -10,14 +10,13 @@ from board import *
 
 class Coin:
 
-    def __init__(self, master, x, y, color, coin_index, path_list, flag):
+    def __init__(self, master, x, y, color, path_list, flag):
         self.canvas = master
         self.curr_x = x
         self.curr_y = y
         self.home_x = x
         self.home_y = y
         self.color = color
-        self.coin_index = coin_index
         self.curr_index = -1
         self.coin = ImageTk.PhotoImage(Image.open('./assets/{}.png'.format(color)))
         self.img =  self.canvas.create_image(x, y, anchor=tk.NW, image=self.coin)
@@ -201,7 +200,7 @@ class Dice:
 
     @classmethod
     def rolling(cls):
-        temp = choice(range(1, 8)
+        temp = choice(range(1, 8))
         if temp > 6:
             temp = 6
 
@@ -304,10 +303,10 @@ class Dice:
 def align(x, y, color, path_list, flag):
     container = []
     for i in range(2):
-        test = Coin(ludo.get_canvas(), x, y + i*2*Board.SQUARE_SIZE, color=color, coin_index=i, path_list=path_list, flag=flag)
+        test = Coin(ludo.get_canvas(), x, y + i*2*Board.SQUARE_SIZE, color=color, path_list=path_list, flag=flag)
         container.append(test)
     for i in range(2):
-        test = Coin(ludo.get_canvas(), x + 2*Board.SQUARE_SIZE, y + i*2*Board.SQUARE_SIZE, color=color, coin_index=i+2, path_list=path_list, flag=flag)
+        test = Coin(ludo.get_canvas(), x + 2*Board.SQUARE_SIZE, y + i*2*Board.SQUARE_SIZE, color=color, path_list=path_list, flag=flag)
         container.append(test)
 
     return container
@@ -342,7 +341,8 @@ welcome_msg = ''' Welcome Champs let's get into the game of LUDO :-) \n
 - The players roll a six-sided die in turns and can advance any of their coins on the track by the number of steps as displayed by the dice.\n
 - Once you get a six in a dice throw, you have to roll the dice again, and must use all scores while making the final selection of what coins to move where.\n
 - If you get a six three times in a row, your throws are reset and you will lose that chance.\n
-- The coin can advance in the home run only if it reaches exactly inside the home pocket, or moves closer to it through the home run. For example, if the coin is four squares away from the home pocket and the player rolls a five, he must apply the throw to some other coin. \
+- The coin can advance in the home run only if it reaches exactly inside the home pocket, or moves closer to it through the home run. 
+For example, if the coin is four squares away from the home pocket and the player rolls a five, he must apply the throw to some other coin. \
 However, if you roll a two, you can advance the coin by two squares and then it rests there until the next move.\n 
     
     Enjoy the game and have fun.
