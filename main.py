@@ -26,6 +26,7 @@ class Coin:
         self.path_list = path_list
         self.flag = flag
         self.win = 0
+        self.pad_x = 0
 
     def moveCoin(self, event):
 
@@ -50,15 +51,14 @@ class Coin:
         congrats = False
         if self.is_at_home():
             if 6 in roll:
-                pad = self.check_overlap(0)
-                self.canvas.coords(self.img, self.path_list[0][0] + 4 + pad*4, self.path_list[0][1] + 4)
+                check = self.can_attack(0)
+                self.canvas.coords(self.img, self.path_list[0][0] + 4 + self.pad_x, self.path_list[0][1] + 4)
                 self.curr_x = self.path_list[0][0]
                 self.curr_y = self.path_list[0][1]
                 self.curr_index = 0
                 Dice.remove_by_index(6)
         else:
             check = self.can_attack(self.curr_index + roll[0])
-            pad = self.check_overlap(self.curr_index + roll[0])
 
             for i in range(roll[0] - 1):
                 self.curr_index += 1
@@ -69,7 +69,7 @@ class Coin:
                 sleep(0.05)
 
             self.curr_index += 1
-            self.canvas.coords(self.img, self.path_list[self.curr_index][0] + 4 + pad*4, self.path_list[self.curr_index][1] + 4)
+            self.canvas.coords(self.img, self.path_list[self.curr_index][0] + 4 + self.pad_x, self.path_list[self.curr_index][1] + 4)
             self.curr_x = self.path_list[self.curr_index][0]
             self.curr_y = self.path_list[self.curr_index][1]
             if check[0]:
@@ -151,34 +151,37 @@ class Coin:
         else:
             return False
         return True
-
-    def check_overlap(self, idx):
-        count = 0
+                                        
+    def can_attack(self, idx):
+        max_pad = 0
+        count_a = 0
         x = self.path_list[idx][0]
         y = self.path_list[idx][1]
-        if self.path_list[idx][2]:
-            for i in range(4):
-                for j in range(4):
-                    if colors[i][j].curr_x == x and colors[i][j].curr_y == y:
-                        count += 1
-        else:
-            for i in range(4):
-                if colors[self.flag][i].curr_x == x and colors[self.flag][i].curr_y == y:
-                    count += 1
-
-        return count
-
-    def can_attack(self, idx):
+        for i in range(4):
+            for j in range(4):
+                if colors[i][j].curr_x == x and colors[i][j].curr_y == y:
+                        if colors[i][j].pad_x > max_pad:
+                            max_pad = colors[i][j].pad_x
+                        count_a += 1
         if not self.path_list[idx][2]:
-            x = self.path_list[idx][0]
-            y = self.path_list[idx][1]
             for i in range(4):
+                count = 0
+                jdx = 0
                 for j in range(4):
-                    if colors[i][j].curr_x == x and colors[i][j].curr_y == y and colors[i][j].color != self.color:
-                        return (True, i, j)
+                    if (colors[i][j].curr_x == x and colors[i][j].curr_y == y 
+                    	and colors[i][j].color != self.color):
+                        count += 1
+                        jdx = j
+                if count is not 0 and count is not 2:
+                    self.pad_x = max_pad + 4
+                    return (True, i, jdx)
 
+        if count_a is not 0:
+            self.pad_x = max_pad + 4
+        else:
+            self.pad_x = 0
         return (False, 0, 0)
-
+                                                                          
     def goto_home(self):
         self.canvas.coords(self.img, self.home_x, self.home_y)
         self.curr_x = self.home_x
@@ -198,7 +201,7 @@ class Dice:
 
     @classmethod
     def rolling(cls):
-        temp = choice(range(1, 8))
+        temp = choice(range(1, 8)
         if temp > 6:
             temp = 6
 
@@ -338,9 +341,9 @@ welcome_msg = ''' Welcome Champs let's get into the game of LUDO :-) \n
         Rules of the game:
 - The players roll a six-sided die in turns and can advance any of their coins on the track by the number of steps as displayed by the dice.\n
 - Once you get a six in a dice throw, you have to roll the dice again, and must use all scores while making the final selection of what coins to move where.\n
-- If you get a six three times in a row, your throws are reset and you have to lose that chance.\n
+- If you get a six three times in a row, your throws are reset and you will lose that chance.\n
 - The coin can advance in the home run only if it reaches exactly inside the home pocket, or moves closer to it through the home run. For example, if the coin is four squares away from the home pocket and the player rolls a five, he must apply the throw to some other coin. \
-However, if you rolls a two, you can advance the coin by two squares and then it rests there until the next move.\n 
+However, if you roll a two, you can advance the coin by two squares and then it rests there until the next move.\n 
     
     Enjoy the game and have fun.
         # Best of luck #
