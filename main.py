@@ -58,7 +58,6 @@ class Coin:
                 Dice.remove_by_index(6)
         else:
             check = self.can_attack(self.curr_index + roll[0])
-
             for i in range(roll[0] - 1):
                 self.curr_index += 1
                 self.canvas.coords(self.img, self.path_list[self.curr_index][0] + 4, self.path_list[self.curr_index][1] + 4)
@@ -76,14 +75,11 @@ class Coin:
 
             self.canvas.update()
             sleep(0.05)
-
             Dice.remove()
-
             if self.curr_index == len(self.path_list) - 1:
                 self.win = 1
                 tkinter.messagebox.showinfo('INFO','!! Congratulations !!\nPlease Roll Dice Again')
                 congrats = self.congratulations()
-
 
             if check[0]:
                 tkinter.messagebox.showinfo('INFO','You killed another coin! Now you get another chance.\nPlease Roll Dice Again')
@@ -96,8 +92,7 @@ class Coin:
 
         if self.is_gameover():
             root.quit()
-
-
+        
         if not check[0] and not congrats:
             if len(Dice.roll):
                 Dice.check_move_possibility()           
