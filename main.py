@@ -157,6 +157,7 @@ class Coin:
                         if colors[i][j].pad_x > max_pad:
                             max_pad = colors[i][j].pad_x
                         count_a += 1
+
         if not self.path_list[idx][2]:
             for i in range(4):
                 count = 0
@@ -166,6 +167,7 @@ class Coin:
                     	and colors[i][j].color != self.color):
                         count += 1
                         jdx = j
+                        
                 if count is not 0 and count is not 2:
                     self.pad_x = max_pad + 4
                     return (True, i, jdx)
@@ -228,6 +230,7 @@ class Dice:
             if [cls.roll[-1], cls.roll[-2], cls.roll[-3]] == [6, 6, 6]:
                 for i in range(3):
                    Dice.remove_by_index(6)
+
             if cls.roll == []:
                 Dice.update_panel()
                 return
@@ -288,9 +291,8 @@ class Dice:
                     check_2 += 1
 
         if 6 not in cls.roll:
-            if check_1 is 4 or check_1 + check_2 is 4 :
+            if check_1 is 4 or check_1 + check_2 is 4:
                 Dice.update_panel()
-
         else:
             if check_2 is 4:
                 Dice.update_panel()
@@ -344,7 +346,6 @@ However, if you roll a two, you can advance the coin by two squares and then it 
         # Best of luck #
 '''
 tkinter.messagebox.showinfo('Welcome', welcome_msg)
-
 
 for i in range(4):
     for j in range(4):
