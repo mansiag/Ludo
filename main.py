@@ -99,6 +99,7 @@ class Coin:
             self.next_turn()
 
     def congratulations(self):
+        Dice.roll = []
         Dice.update_state()
         Dice.set(self.flag - 1)
 
@@ -197,7 +198,7 @@ class Dice:
 
     @classmethod
     def rolling(cls):
-        temp = choice(range(1, 8))
+        temp = choice(range(1, 9))
         if temp > 6:
             temp = 6
 
@@ -249,22 +250,24 @@ class Dice:
         cls.chance = flag
         if flag == 4:
             cls.chance = flag = 0
+        if colors[cls.chance][0].is_player_wins():
+        	Dice.set(cls.chance)
+        else:
+            for i in range(4):
+                for j in range(4):
+                    colors[i][j].change_state(flag)
 
-        for i in range(4):
-            for j in range(4):
-                colors[i][j].change_state(flag)
-
-        next_label = tk.Label(ludo.get_frame(), text='{} turn'.format(turn[flag]), font=(None, 20), width=30, height=3,
+            next_label = tk.Label(ludo.get_frame(), text='{} turn'.format(turn[flag]), font=(None, 20), width=30, height=3,
                             borderwidth=3, relief=tk.SUNKEN)
-        next_label.place(x=100, y=100)
+            next_label.place(x=100, y=100)
 
-        roll_label = tk.Label(ludo.get_frame(), text='ROLL PLEASE', font=(None, 20), width=30, height=3, borderwidth=3, relief=tk.RAISED)
-        roll_label.place(x=100, y=200)
+            roll_label = tk.Label(ludo.get_frame(), text='ROLL PLEASE', font=(None, 20), width=30, height=3, borderwidth=3, relief=tk.RAISED)
+            roll_label.place(x=100, y=200)
 
-        img = ImageTk.PhotoImage(Image.open('./assets/trans.png'))
-        image_label = tk.Label(ludo.get_frame(), width=100, height=100, image=img, bg=Color.CYAN)
-        image_label.image = img
-        image_label.place(x=250, y=300)
+            img = ImageTk.PhotoImage(Image.open('./assets/trans.png'))
+            image_label = tk.Label(ludo.get_frame(), width=100, height=100, image=img, bg=Color.CYAN)
+            image_label.image = img
+            image_label.place(x=250, y=300)
 
     @classmethod
     def remove(cls):
