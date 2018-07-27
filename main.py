@@ -37,7 +37,7 @@ class Coin:
             return
 
         if roll[-1] == 6:
-            tkinter.messagebox.showerror('Error','You got 6, Please Roll Again')
+            tkinter.messagebox.showerror('Error', 'You got 6, Please Roll Again')
             return
 
         if len(roll) != 0 :
@@ -85,9 +85,10 @@ class Coin:
                 tkinter.messagebox.showinfo('INFO','You killed another coin! Now you get another chance.\nPlease Roll Dice Again')
                 congrats = self.congratulations()
 
-        if self.is_player_wins():
+        if self.is_player_won():
             tkinter.messagebox.showinfo('INFO','{} Wins'.format(self.color.title()))
             position.append(self.color.title())
+            Dice.roll = []
             Dice.set(self.flag)
 
         if self.is_gameover():
@@ -99,7 +100,6 @@ class Coin:
             self.next_turn()
 
     def congratulations(self):
-        Dice.roll = []
         Dice.update_state()
         Dice.set(self.flag - 1)
 
@@ -122,7 +122,7 @@ class Coin:
 
         return count
 
-    def is_player_wins(self):
+    def is_player_won(self):
         reached = 0
         for goti in colors[self.flag]:
             if goti.win:
@@ -165,7 +165,7 @@ class Coin:
                 jdx = 0
                 for j in range(4):
                     if (colors[i][j].curr_x == x and colors[i][j].curr_y == y 
-                    	and colors[i][j].color != self.color):
+                        and colors[i][j].color != self.color):
                         count += 1
                         jdx = j
                         
@@ -178,7 +178,7 @@ class Coin:
         else:
             self.pad_x = 0
         return (False, 0, 0)
-                                                                          
+
     def goto_home(self):
         self.canvas.coords(self.img, self.home_x, self.home_y)
         self.curr_x = self.home_x
@@ -250,8 +250,8 @@ class Dice:
         cls.chance = flag
         if flag == 4:
             cls.chance = flag = 0
-        if colors[cls.chance][0].is_player_wins():
-        	Dice.set(cls.chance)
+        if colors[cls.chance][0].is_player_won():
+            Dice.set(cls.chance)
         else:
             for i in range(4):
                 for j in range(4):
