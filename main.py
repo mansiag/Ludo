@@ -10,7 +10,7 @@ from board import *
 
 class Coin:
 
-    def __init__(self, master, x, y, color, path_list, flag):
+    def __init__(self, master, x, y, color, path_list, flag, player):
         self.canvas = master
         self.curr_x = x
         self.curr_y = y
@@ -26,6 +26,7 @@ class Coin:
         self.flag = flag
         self.win = 0
         self.pad_x = 0
+        self.player = player
 
     def moveCoin(self, event):
 
@@ -87,7 +88,7 @@ class Coin:
 
         if self.is_player_won():
             tkinter.messagebox.showinfo('INFO','{} Wins'.format(self.color.title()))
-            position.append(self.color.title())
+            position.append(self.player.title())
             Dice.roll = []
             Dice.set(self.flag)
 
@@ -300,18 +301,81 @@ class Dice:
             if check_2 is 4:
                 Dice.update_panel()
 
-def align(x, y, color, path_list, flag):
+def align(x, y, color, path_list, flag, player):
     container = []
     for i in range(2):
-        test = Coin(ludo.get_canvas(), x, y + i*2*Board.SQUARE_SIZE, color=color, path_list=path_list, flag=flag)
+        test = Coin(ludo.get_canvas(), x, y + i*2*Board.SQUARE_SIZE, color=color, path_list=path_list, flag=flag, player=player)
         container.append(test)
     for i in range(2):
-        test = Coin(ludo.get_canvas(), x + 2*Board.SQUARE_SIZE, y + i*2*Board.SQUARE_SIZE, color=color, path_list=path_list, flag=flag)
+        test = Coin(ludo.get_canvas(), x + 2*Board.SQUARE_SIZE, y + i*2*Board.SQUARE_SIZE, color=color, path_list=path_list, flag=flag, player=player)
         container.append(test)
 
     return container
 
+def startgame():
+    for i in range(4):
+        if players[i].get():
+            turn[i] = players[i].get()
+    colors.append(align(2.1*Board.SQUARE_SIZE, 2.1*Board.SQUARE_SIZE, color='green', path_list=path.green_path, flag=0, player=turn[0]))
+    colors.append(align(2.1*Board.SQUARE_SIZE, 11.1*Board.SQUARE_SIZE, color='red', path_list=path.red_path, flag=1, player=turn[1]))
+    colors.append(align(11.1*Board.SQUARE_SIZE, 11.1*Board.SQUARE_SIZE, color='blue', path_list=path.blue_path, flag=2, player=turn[2]))
+    colors.append(align(11.1*Board.SQUARE_SIZE, 2.1*Board.SQUARE_SIZE, color='yellow', path_list=path.yellow_path, flag=3, player=turn[3]))
 
+    for i in range(4):
+        for j in range(4):
+            colors[i][j].change_state(0)
+    start_label = tk.Label(ludo.get_frame(), text='! START ! Let\'s Begin with {}'.format(turn[0]), font=(None, 20),
+                         width=30, height=3, borderwidth=3, relief=tk.SUNKEN)
+    start_label.place(x=100, y=100)
+    top.destroy()
+
+def create_enterpage():
+    enter_label = tk.Label(top, text='Enter Your Nickname!', font=(None, 20), width=30, height=3,
+                            borderwidth=3, relief=tk.RAISED)
+    enter_label.place(x=20, y=20)
+
+    enter_button = tk.Button(top, text='Enter', command=startgame, width=15, height=2)
+    enter_button.place(x=230, y=500)
+
+    for i in range(2):
+        temp = tk.Entry(top, width=15)
+        temp.place(x=87+i*300, y=220)
+        players.append(temp)
+
+    for i in range(2):
+        temp = tk.Entry(top, width=15)
+        temp.place(x=87+i*300, y=400)
+        players.append(temp)
+
+    global greenimg, redimg, blueimg, yellowimg
+
+    greenimg = ImageTk.PhotoImage(Image.open('./assets/green2.png'))
+    green_label = tk.Label(top, image=greenimg)
+    green_label.place(x=107, y=130)
+
+    redimg = ImageTk.PhotoImage(Image.open('./assets/red2.png'))
+    red_label = tk.Label(top, image=redimg)
+    red_label.place(x=407, y=130)
+
+    blueimg = ImageTk.PhotoImage(Image.open('./assets/blue2.png'))
+    blue_label = tk.Label(top, image=blueimg)
+    blue_label.place(x=107, y=310)
+
+    yellowimg = ImageTk.PhotoImage(Image.open('./assets/yellow2.png'))
+    yellow_label = tk.Label(top, image=yellowimg)
+    yellow_label.place(x=407, y=310)
+
+def on_closing():
+    if tkinter.messagebox.askokcancel("Quit", "Do you want to quit the game? If you want to continue the game, press Enter in the Nickname window"):
+        top.destroy()
+        root.destroy()
+
+def on_closingroot():
+    if tkinter.messagebox.askokcancel("Quit", "Do you want to quit the game?"):
+        root.destroy() 
+
+
+players = []
 root = tk.Tk()
 width = root.winfo_screenwidth()
 height = root.winfo_screenheight()
@@ -321,20 +385,13 @@ root.title('Ludo')
 ludo = LudoBoard(root)
 ludo.create()
 
-start_label = tk.Label(ludo.get_frame(), text='! START ! Let\'s Begin with Green.', font=(None, 20),
-                         width=30, height=3, borderwidth=3, relief=tk.SUNKEN)
-start_label.place(x=100, y=100)
-
-turn = ['Green', 'Red', 'Blue', 'Yellow']
+turn = ['Green','Red','Blue','Yellow']
 position = []
 colors = []
-colors.append(align(2.1*Board.SQUARE_SIZE, 2.1*Board.SQUARE_SIZE, color='green', path_list=path.green_path, flag=0))
-colors.append(align(2.1*Board.SQUARE_SIZE, 11.1*Board.SQUARE_SIZE, color='red', path_list=path.red_path, flag=1))
-colors.append(align(11.1*Board.SQUARE_SIZE, 11.1*Board.SQUARE_SIZE, color='blue', path_list=path.blue_path, flag=2))
-colors.append(align(11.1*Board.SQUARE_SIZE, 2.1*Board.SQUARE_SIZE, color='yellow', path_list=path.yellow_path, flag=3))
 
 button = tk.Button(ludo.get_frame(), text='ROLL', command=Dice.start, width=20, height=2)
 button.place(x=210, y=470)
+
 
 welcome_msg = ''' Welcome Champs let's get into the game of LUDO :-) \n
         Rules of the game:
@@ -350,8 +407,10 @@ However, if you roll a two, you can advance the coin by two squares and then it 
 '''
 tkinter.messagebox.showinfo('Welcome', welcome_msg)
 
-for i in range(4):
-    for j in range(4):
-        colors[i][j].change_state(0)
-
+top = tk.Toplevel(root)
+top.geometry('600x600')
+top.title('Nickname')
+top.protocol("WM_DELETE_WINDOW", on_closing)
+root.protocol("WM_DELETE_WINDOW", on_closingroot)
+create_enterpage()
 root.mainloop()
