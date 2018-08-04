@@ -96,7 +96,7 @@ class Coin:
         
         if not check[0] and not congrats:
             if len(Dice.roll):
-                Dice.check_move_possibility()           
+                Dice.check_move_possibility()
             self.next_turn()
 
     def congratulations(self):
@@ -146,7 +146,7 @@ class Coin:
         else:
             return False
         return True
-                                        
+
     def can_attack(self, idx):
         max_pad = 0
         count_a = 0
@@ -303,6 +303,7 @@ class Dice:
             if check_2 is 4:
                 Dice.update_panel()
 
+
 def align(x, y, color, path_list, flag):
     container = []
     for i in range(2):
@@ -321,7 +322,7 @@ def startgame():
     for i in range(4):
         for j in range(4):
             colors[i][j].set_playername(turn[i])
-   
+
     start_label = tk.Label(ludo.get_frame(), text='! START ! Let\'s Begin with {}'.format(turn[0]), font=(None, 20),
                          width=30, height=3, borderwidth=3, relief=tk.SUNKEN)
     start_label.place(x=100, y=100)
@@ -337,12 +338,12 @@ def create_enterpage():
 
     for i in range(2):
         temp = tk.Entry(top, width=15)
-        temp.place(x=87+i*300, y=220)
+        temp.place(x=87 + i*300, y=220)
         players.append(temp)
 
     for i in range(2):
         temp = tk.Entry(top, width=15)
-        temp.place(x=87+i*300, y=400)
+        temp.place(x=87 + i*300, y=400)
         players.append(temp)
 
     global greenimg, redimg, blueimg, yellowimg
@@ -383,7 +384,7 @@ root.title('Ludo')
 ludo = LudoBoard(root)
 ludo.create()
 
-turn = ['Green','Red','Blue','Yellow']
+turn = ['Green', 'Red', 'Blue', 'Yellow']
 position = []
 colors = []
 colors.append(align(2.1*Board.SQUARE_SIZE, 2.1*Board.SQUARE_SIZE, color='green', path_list=path.green_path, flag=0))
@@ -394,6 +395,7 @@ colors.append(align(11.1*Board.SQUARE_SIZE, 2.1*Board.SQUARE_SIZE, color='yellow
 for i in range(4):
     for j in range(4):
         colors[i][j].change_state(0)
+
 button = tk.Button(ludo.get_frame(), text='ROLL', command=Dice.start, width=20, height=2)
 button.place(x=210, y=470)
 
