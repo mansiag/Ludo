@@ -19,6 +19,7 @@ python3 main.py
 - When the player rolls a six, he/she can get a single pawn out off a pocket. Then you roll again and move that pawn the number of spaces corresponding to the second roll.
     -   If the player rolls a six on the second roll, then the player can choose to place another pawn out of a pocket or move the first pawn. If you moved a second pawn out of your pocket, roll a third time and proceed to move a pawn.
     -   If a player rolls a six on their third roll, they cannot place any pawns out of their pocket. The third six ends a player’s turn
+- *** If there is two or more than two coins on a single block of path then player has to click on the visible part of that coin for moving the coin. ***
 - Now, once a token travels around the entire board and reaches his home stretch or home column, it has to be moved towards the home. For this, a player has to roll the exact number the token has to move in order to reach home. For example, if you roll a four, and your token requires to move only three squares, you have to move another token or pass. The first player to move all his tokens to the finishing square wins the game.
 
 ### Screenshots
