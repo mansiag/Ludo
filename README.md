@@ -23,15 +23,15 @@ python3 main.py
 
 ### Screenshots
 
-![alt text](https://gitlab.com/mansiag/Ludo/blob/master/assets/main.png)
+![alt text](https://gitlab.com/mansiag/Ludo/blob/master/assets/main.png "Main" )
 
-![alt text](https://gitlab.com/mansiag/Ludo/blob/master/assets/name.png)
+![alt text](https://gitlab.com/mansiag/Ludo/blob/master/assets/name.png "Playing" )
 
-![alt text](https://gitlab.com/mansiag/Ludo/blob/master/assets/midphase.png)
+![alt text](https://gitlab.com/mansiag/Ludo/blob/master/assets/midphase.png "MidPhase" )
 
-![alt text](https://gitlab.com/mansiag/Ludo/blob/master/assets/kill.png)
+![alt text](https://gitlab.com/mansiag/Ludo/blob/master/assets/kill.png "Killing" )
 
 ## Contributors
 
-- [Mansi Agrawal (mansiag)](https://github.com/mansiag)
-- [Shivam Gupta (shivg7706)](https://github.com/shivg7706)
+- [Mansi Agrawal (@mansiag)](https://github.com/mansiag)
+- [Shivam Gupta (@shivg7706)](https://github.com/shivg7706)
