@@ -24,11 +24,14 @@ python3 main.py
 ### Screenshots
 
 ![alt text](https://gitlab.com/mansiag/Ludo/blob/master/assets/main.png)
+
 ![alt text](https://gitlab.com/mansiag/Ludo/blob/master/assets/name.png)
+
 ![alt text](https://gitlab.com/mansiag/Ludo/blob/master/assets/midphase.png)
+
 ![alt text](https://gitlab.com/mansiag/Ludo/blob/master/assets/kill.png)
 
 ## Contributors
 
-[Mansi Agrawal (mansiag)](https://github.com/mansiag)
-[Shivam Gupta (shivg7706)](https://github.com/shivg7706)
+- [Mansi Agrawal (mansiag)](https://github.com/mansiag)
+- [Shivam Gupta (shivg7706)](https://github.com/shivg7706)
