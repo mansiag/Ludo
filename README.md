@@ -23,13 +23,13 @@ python3 main.py
 
 ### Screenshots
 
-![alt text](https://gitlab.com/mansiag/Ludo/blob/master/assets/main.png "Main" )
+![alt text](./assets/main.png?raw=true)
 
-![alt text](https://gitlab.com/mansiag/Ludo/blob/master/assets/name.png "Playing" )
+![alt text](./assets/name.png?raw=true)
 
-![alt text](https://gitlab.com/mansiag/Ludo/blob/master/assets/midphase.png "MidPhase" )
+![alt text](./assets/midphase.png?raw=true)
 
-![alt text](https://gitlab.com/mansiag/Ludo/blob/master/assets/kill.png "Killing" )
+![alt text](./assets/kill.png?raw=true)
 
 ## Contributors
 
