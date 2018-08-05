@@ -338,12 +338,12 @@ def create_enterpage():
 
     for i in range(2):
         temp = tk.Entry(top, width=15)
-        temp.place(x=87 + i*300, y=220)
+        temp.place(x=87, y=220 + i*180)
         players.append(temp)
 
     for i in range(2):
         temp = tk.Entry(top, width=15)
-        temp.place(x=87 + i*300, y=400)
+        temp.place(x=387, y=400 - i*180)
         players.append(temp)
 
     global greenimg, redimg, blueimg, yellowimg
@@ -354,15 +354,15 @@ def create_enterpage():
 
     redimg = ImageTk.PhotoImage(Image.open('./assets/red2.png'))
     red_label = tk.Label(top, image=redimg)
-    red_label.place(x=407, y=130)
+    red_label.place(x=107, y=310)
 
     blueimg = ImageTk.PhotoImage(Image.open('./assets/blue2.png'))
     blue_label = tk.Label(top, image=blueimg)
-    blue_label.place(x=107, y=310)
+    blue_label.place(x=407, y=310)
 
     yellowimg = ImageTk.PhotoImage(Image.open('./assets/yellow2.png'))
     yellow_label = tk.Label(top, image=yellowimg)
-    yellow_label.place(x=407, y=310)
+    yellow_label.place(x=407, y=130)
 
 def on_closing():
     if tkinter.messagebox.askokcancel("Quit", "Do you want to quit the game? If you want to continue the game, press Enter in the Nickname window"):
